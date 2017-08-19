@@ -10,6 +10,7 @@ namespace CAD.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.Message = "Hello World";
             return View();
         }
 
