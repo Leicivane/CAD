@@ -1,0 +1,11 @@
+﻿.meio {
+    margin-top: 10em;
+}
+
+.validation-summary-errors.alert.alert-danger ul {
+    padding-left: 1em;
+}
+
+    .validation-summary-errors.alert.alert-danger ul li {
+        list-style-type: none;
+    }

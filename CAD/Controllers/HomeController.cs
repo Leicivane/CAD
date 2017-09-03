@@ -1,27 +1,13 @@
 ﻿using System.Web.Mvc;
 
-namespace CAD.Controllers
+namespace CAD.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController: Controller
     {
+        [HttpGet]
         public ActionResult Index()
         {
-            ViewBag.Message = "Hello World";
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return View("Index");
         }
     }
 }
