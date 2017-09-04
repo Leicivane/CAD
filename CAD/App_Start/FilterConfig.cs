@@ -1,7 +1,7 @@
-﻿using CAD.Web.Infraestrutura.Seguranca.Filters;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using CAD.Infraestrutura.Seguranca.Filters;
 
-namespace CAD.Web
+namespace CAD
 {
     public class FilterConfig
     {

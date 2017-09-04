@@ -1,8 +1,8 @@
-﻿using Cad.Core.Negocio.Exception;
-using CAD.Web.Infraestrutura.Extensions;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using Cad.Core.Negocio.Exception;
+using CAD.Infraestrutura.Extensions;
 
-namespace CAD.Web.Infraestrutura.Seguranca.Filters
+namespace CAD.Infraestrutura.Seguranca.Filters
 {
     public class GlobalErrorHandlerAttribute : HandleErrorAttribute
     {

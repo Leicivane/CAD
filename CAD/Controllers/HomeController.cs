@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace CAD.Web.Controllers
+namespace CAD.Controllers
 {
     public class HomeController: Controller
     {

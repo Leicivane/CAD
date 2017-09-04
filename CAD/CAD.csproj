@@ -152,7 +152,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
-    <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="App_Start\UnityWebActivator.cs" />
     <Compile Include="Controllers\ContaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -164,9 +164,9 @@
     <Compile Include="Infraestrutura\MVC\ConfigurationReader.cs" />
     <Compile Include="Infraestrutura\MVC\CPFAttribute.cs" />
     <Compile Include="Infraestrutura\MVC\TempDataServico.cs" />
-    <Compile Include="Infraestrutura\MVC\WebViewPage.cs" />
     <Compile Include="Infraestrutura\Seguranca\Filters\GlobalErrorHandlerAttribute.cs" />
     <Compile Include="Infraestrutura\Seguranca\Filters\RestaurarViewDataAttribute.cs" />
+    <Compile Include="Models\Email.cs" />
     <Compile Include="Models\EsqueciSenhaVM.cs" />
     <Compile Include="Models\LoginVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -239,7 +239,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CAD.Core\CAD.Core.csproj">

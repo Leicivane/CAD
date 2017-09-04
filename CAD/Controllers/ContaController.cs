@@ -1,9 +1,9 @@
-﻿using Cad.Core.Negocio.Servico.Interface;
-using CAD.Web.Infraestrutura.Interface;
-using CAD.Web.Model;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using Cad.Core.Negocio.Servico.Interface;
+using CAD.Infraestrutura.Interface;
+using CAD.Models;
 
-namespace CAD.Web.Controllers
+namespace CAD.Controllers
 {
     public class ContaController : Controller
     {

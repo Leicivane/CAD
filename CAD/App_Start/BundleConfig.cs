@@ -1,6 +1,6 @@
 using System.Web.Optimization;
 
-namespace CAD.Web
+namespace CAD
 {
     public class BundleConfig
     {

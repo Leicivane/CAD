@@ -1,11 +1,11 @@
+using System.ComponentModel.DataAnnotations;
 using Cad.Core.Negocio.DTO;
 using Cad.Core.Negocio.Mensagem;
 using Cad.Core.Util.Guard;
 using Cad.Core.Util.Mapeador;
-using CAD.Web.Infraestrutura.MVC;
-using System.ComponentModel.DataAnnotations;
+using CAD.Infraestrutura.MVC;
 
-namespace CAD.Web.Model
+namespace CAD.Models
 {
     public class LoginVM
     {

@@ -3,7 +3,7 @@ using System.IO;
 using System.Web;
 using System.Web.Routing;
 
-namespace CAD.Web.Infraestrutura.Extensions
+namespace CAD.Infraestrutura.Extensions
 {
     public static class UriExtensions
     {

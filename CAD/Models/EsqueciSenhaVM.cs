@@ -1,13 +1,11 @@
 ﻿using Cad.Core.Negocio.Mensagem;
-using Cad.Core.Negocio.Servico;
+using Cad.Core.Negocio.Servico.Interface;
 using Cad.Core.Util.Guard;
 using Cad.Core.Util.Mapeador;
-using CAD.Web.Infraestrutura.MVC;
+using CAD.Infraestrutura.MVC;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
-using Cad.Core.Negocio.Servico.Interface;
 
-namespace CAD.Web
+namespace CAD.Models
 {
     public class EsqueciSenhaVM
     {
@@ -35,22 +33,4 @@ namespace CAD.Web
             return destino;
         }
     }
-
-    public class Email : RegularExpressionAttribute
-    {
-        static Email()
-        {
-            DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(Email), typeof(RegularExpressionAttributeAdapter));
-        }
-
-        /// <summary>
-        /// from: http://stackoverflow.com/a/6893571/984463
-        /// </summary>
-        public Email()
-            : base(@"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*"
-                + "@"
-                + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$")
-        { }
-    }
-
 }

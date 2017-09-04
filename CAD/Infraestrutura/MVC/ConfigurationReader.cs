@@ -1,7 +1,7 @@
-using CAD.Web.Infraestrutura.Interface;
 using System.Configuration;
+using CAD.Infraestrutura.Interface;
 
-namespace CAD.Web.Controllers
+namespace CAD.Infraestrutura.MVC
 {
     public class ConfigurationReader : IConfigurationReader
     {

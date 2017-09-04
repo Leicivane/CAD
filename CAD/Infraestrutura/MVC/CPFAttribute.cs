@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace CAD.Web.Infraestrutura.MVC
+namespace CAD.Infraestrutura.MVC
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
     public class CPFAttribute : ValidationAttribute

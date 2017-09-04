@@ -1,4 +1,4 @@
-namespace CAD.Web.Infraestrutura.Interface
+namespace CAD.Infraestrutura.Interface
 {
     public interface IConfigurationReader
     {
