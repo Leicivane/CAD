@@ -30,8 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,27 +51,53 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Negocio\DTO\UsuarioDTO.cs" />
-    <Compile Include="Negocio\Exception\NegocioException.cs" />
-    <Compile Include="Negocio\Mensagem\Mensagem.cs" />
-    <Compile Include="Negocio\Recursos\Email.cs" />
-    <Compile Include="Negocio\Servico\Interface\DestinatarioMensagemDTO.cs" />
-    <Compile Include="Negocio\Servico\Interface\EmailServico.cs" />
-    <Compile Include="Negocio\Servico\Interface\IUsuarioServico.cs" />
-    <Compile Include="Negocio\Servico\Interface\MensagemAlteracaoSenhaDTO.cs" />
-    <Compile Include="Negocio\Servico\Interface\RemetenteMensagemDTO.cs" />
-    <Compile Include="Negocio\Servico\Interface\UsuarioNovaSenhaDTO.cs" />
-    <Compile Include="Negocio\Servico\Interface\UsuarioServico.cs" />
+    <Compile Include="Negocio\Exceptions\NegocioException.cs" />
+    <Compile Include="Negocio\Mensagens\Mensagem.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Mensagem.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Recursos\Email.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Email.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\DTO\DestinatarioMensagemDTO.cs" />
+    <Compile Include="Negocio\Servicos\EmailServico.cs" />
+    <Compile Include="Negocio\Servicos\Interface\IUsuarioServico.cs" />
+    <Compile Include="Negocio\DTO\MensagemAlteracaoSenhaDTO.cs" />
+    <Compile Include="Negocio\DTO\RemetenteMensagemDTO.cs" />
+    <Compile Include="Negocio\DTO\UsuarioNovaSenhaDTO.cs" />
+    <Compile Include="Negocio\Enums\TipoDocumento.cs" />
+    <Compile Include="Negocio\Enums\TipoUsuario.cs" />
+    <Compile Include="Negocio\Servicos\UsuarioServico.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\Guard\Guard.cs" />
     <Compile Include="Util\Mapeador\Mapeador.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Negocio\Mensagem\Mensagem.resx" />
-    <EmbeddedResource Include="Negocio\Recursos\Email.resx" />
+    <EmbeddedResource Include="Negocio\Mensagens\Mensagem.resx">
+      <CustomToolNamespace>CAD.Core.Negocio.Mensagens</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Mensagem.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Recursos\Email.resx">
+      <CustomToolNamespace>CAD.Core.Negocio.Recursos</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Email.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Cad.Data\CAD.Data.csproj">
+      <Project>{ee0dfb1a-ac25-4158-8754-cc8de1639782}</Project>
+      <Name>CAD.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\EsqueciSenha.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,9 +1,9 @@
-using System.ComponentModel.DataAnnotations;
-using Cad.Core.Negocio.DTO;
-using Cad.Core.Negocio.Mensagem;
-using Cad.Core.Util.Guard;
-using Cad.Core.Util.Mapeador;
+using CAD.Core.Negocio.Mensagens;
 using CAD.Infraestrutura.MVC;
+using System.ComponentModel.DataAnnotations;
+using CAD.Core.Negocio.DTO;
+using CAD.Core.Util.Guard;
+using CAD.Core.Util.Mapeador;
 
 namespace CAD.Models
 {

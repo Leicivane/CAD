@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cad.Core.Util.Guard
+namespace CAD.Core.Util.Guard
 {
     public static class Guard
     {

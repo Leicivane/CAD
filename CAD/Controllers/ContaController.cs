@@ -1,7 +1,7 @@
-﻿using System.Web.Mvc;
-using Cad.Core.Negocio.Servico.Interface;
-using CAD.Infraestrutura.Interface;
+﻿using CAD.Infraestrutura.Interface;
 using CAD.Models;
+using System.Web.Mvc;
+using CAD.Core.Negocio.Servicos.Interface;
 
 namespace CAD.Controllers
 {
@@ -61,7 +61,7 @@ namespace CAD.Controllers
 
             _usuarioServico.SolicitarMudancaSenha(dto);
 
-            _tempDataServico.Adicionar(Mensagem, Cad.Core.Negocio.Mensagem.Mensagem.M012);
+            _tempDataServico.Adicionar(Mensagem, Core.Negocio.Mensagens.Mensagem.M012);
             return RedirectToAction("Login");
         }
     }

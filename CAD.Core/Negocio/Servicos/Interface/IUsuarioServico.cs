@@ -1,8 +1,6 @@
-﻿using Cad.Core.Negocio.DTO;
-using Cad.Core.Negocio.Exception;
-using Cad.Core.Util.Guard;
+﻿using CAD.Core.Negocio.DTO;
 
-namespace Cad.Core.Negocio.Servico.Interface
+namespace CAD.Core.Negocio.Servicos.Interface
 {
     public interface IUsuarioServico
     {

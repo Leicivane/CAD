@@ -1,10 +1,11 @@
-namespace Cad.Data
-{
-    using System.Data.Entity;
+using Cad.Data.Entidades;
+using System.Data.Entity;
 
-    public partial class CAD : DbContext
+namespace Cad.Data.Contexto
+{
+    public partial class CADContext : DbContext
     {
-        public CAD()
+        public CADContext()
             : base("name=CAD")
         {
         }
@@ -14,7 +15,7 @@ namespace Cad.Data
         public virtual DbSet<OrdemServico> OrdemsServico { get; set; }
         public virtual DbSet<Pessoa> Pessoas { get; set; }
         public virtual DbSet<Telefone> Telefones { get; set; }
-        public virtual DbSet<UsuarioSetor> UsuariosSetor { get; set; }
+        public virtual DbSet<UsuarioDepartamento> UsuariosDepartamentos { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -32,7 +33,7 @@ namespace Cad.Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<OrdemServico>()
-                .Property(e => e.Descricao)
+                .Property(e => e.DescricaoOrdemServico)
                 .IsUnicode(false);
 
             modelBuilder.Entity<OrdemServico>()
@@ -44,7 +45,7 @@ namespace Cad.Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<Pessoa>()
-                .Property(e => e.SobreNomePessoa)
+                .Property(e => e.SobrenomePessoa)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Pessoa>()
@@ -63,6 +64,11 @@ namespace Cad.Data
 
             modelBuilder.Entity<Pessoa>()
                 .HasMany(e => e.OrdemsServico)
+                .WithRequired(e => e.Pessoa)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Pessoa>()
+                .HasMany(e => e.Telefones)
                 .WithRequired(e => e.Pessoa)
                 .WillCascadeOnDelete(false);
 
@@ -90,6 +96,11 @@ namespace Cad.Data
             modelBuilder.Entity<Usuario>()
                 .Property(e => e.Senha)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Usuario>()
+                .HasMany(e => e.UsuariosDepartamento)
+                .WithRequired(e => e.Usuario)
+                .WillCascadeOnDelete(false);
         }
     }
 }

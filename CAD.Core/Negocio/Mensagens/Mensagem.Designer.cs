@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Cad.Core.Negocio.Mensagem {
+namespace CAD.Core.Negocio.Mensagens {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Cad.Core.Negocio.Mensagem {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Cad.Core.Negocio.Mensagem.Mensagem", typeof(Mensagem).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CAD.Core.Negocio.Mensagens.Mensagem", typeof(Mensagem).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

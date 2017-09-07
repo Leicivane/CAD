@@ -1,9 +1,10 @@
-﻿using Cad.Core.Negocio.Mensagem;
-using Cad.Core.Negocio.Servico.Interface;
-using Cad.Core.Util.Guard;
-using Cad.Core.Util.Mapeador;
+﻿using CAD.Core.Negocio.Mensagens;
 using CAD.Infraestrutura.MVC;
 using System.ComponentModel.DataAnnotations;
+using CAD.Core.Negocio.DTO;
+using CAD.Core.Negocio.Servicos.Interface;
+using CAD.Core.Util.Guard;
+using CAD.Core.Util.Mapeador;
 
 namespace CAD.Models
 {
@@ -17,7 +18,7 @@ namespace CAD.Models
         public string LoginFormatado => Login.Replace(".", "").Replace("-", "");
 
         [Display(Name = "Lembrar a senha?")]
-        public bool LembrarSenha { get; set; }
+        public bool LembrarSenha { get; set; } 
 
         [Display(Name = "Email")]
         [Email(ErrorMessageResourceName = "M003", ErrorMessageResourceType = typeof(Mensagem))]

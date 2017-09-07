@@ -1,8 +1,10 @@
+using CAD.Core.Negocio.DTO;
+using CAD.Core.Negocio.Recursos;
+using CAD.Core.Negocio.Servicos.Interface;
 using System;
 using System.Net.Mail;
-using Cad.Core.Negocio.Recursos;
 
-namespace Cad.Core.Negocio.Servico.Interface
+namespace CAD.Core.Negocio.Servicos
 {
     public class EmailServico
     {

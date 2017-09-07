@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Cad.Core.Negocio.Recursos {
+namespace CAD.Core.Negocio.Recursos {
     using System;
     
     
@@ -22,7 +22,7 @@ namespace Cad.Core.Negocio.Recursos {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Email {
+    public class Email {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,10 +36,10 @@ namespace Cad.Core.Negocio.Recursos {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Cad.Core.Negocio.Recursos.Email", typeof(Email).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CAD.Core.Negocio.Recursos.Email", typeof(Email).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace Cad.Core.Negocio.Recursos {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -74,7 +74,7 @@ namespace Cad.Core.Negocio.Recursos {
         ///			/* Client-specific Styles */
         ///			#outlook a{padding:0;} /* Force Outlook to provide a  [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string EsqueciSenha {
+        public static string EsqueciSenha {
             get {
                 return ResourceManager.GetString("EsqueciSenha", resourceCulture);
             }

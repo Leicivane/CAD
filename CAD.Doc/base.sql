@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2012                    */
-/* Created on:     05/09/2017 22:07:45                          */
+/* Created on:     06/09/2017 20:58:09                          */
 /*==============================================================*/
 
 
@@ -34,8 +34,8 @@ go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('USUARIO_SETOR_TB') and o.name = 'FK_USUARIO__RELATIONS_USUARIO_')
-alter table USUARIO_SETOR_TB
+   where r.fkeyid = object_id('USUARIO_DEPARTAMENTO_TB') and o.name = 'FK_USUARIO__RELATIONS_USUARIO_')
+alter table USUARIO_DEPARTAMENTO_TB
    drop constraint FK_USUARIO__RELATIONS_USUARIO_
 go
 
@@ -119,18 +119,18 @@ go
 
 if exists (select 1
             from  sysindexes
-           where  id    = object_id('USUARIO_SETOR_TB')
+           where  id    = object_id('USUARIO_DEPARTAMENTO_TB')
             and   name  = 'RELATIONSHIP_12_FK'
             and   indid > 0
             and   indid < 255)
-   drop index USUARIO_SETOR_TB.RELATIONSHIP_12_FK
+   drop index USUARIO_DEPARTAMENTO_TB.RELATIONSHIP_12_FK
 go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('USUARIO_SETOR_TB')
+           where  id = object_id('USUARIO_DEPARTAMENTO_TB')
             and   type = 'U')
-   drop table USUARIO_SETOR_TB
+   drop table USUARIO_DEPARTAMENTO_TB
 go
 
 if exists (select 1
@@ -153,8 +153,10 @@ go
 /* Table: DOCUMENTO_IDENTIFICACAO_TB                            */
 /*==============================================================*/
 create table DOCUMENTO_IDENTIFICACAO_TB (
-   ID_PESSOA            int                  not null,
    ID_DOCUMENTO_IDENTIFICACAO int                  identity,
+   ID_PESSOA            int                  not null,
+   CODIGO_TIPO_DOCUMENTO_IDENTIFICACAO int                  not null,
+   NUMERO_DOCUMENTO_IDENTIFICACAO varchar(11)          not null,
    constraint PK_DOCUMENTO_IDENTIFICACAO_TB primary key nonclustered (ID_DOCUMENTO_IDENTIFICACAO)
 )
 go
@@ -178,6 +180,25 @@ go
 
 if exists(select 1 from sys.extended_properties p where
       p.major_id = object_id('DOCUMENTO_IDENTIFICACAO_TB')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'ID_DOCUMENTO_IDENTIFICACAO')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'DOCUMENTO_IDENTIFICACAO_TB', 'column', 'ID_DOCUMENTO_IDENTIFICACAO'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   'Identificador do documento de identificação',
+   'user', @CurrentUser, 'table', 'DOCUMENTO_IDENTIFICACAO_TB', 'column', 'ID_DOCUMENTO_IDENTIFICACAO'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('DOCUMENTO_IDENTIFICACAO_TB')
   and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'ID_PESSOA')
 )
 begin
@@ -197,21 +218,27 @@ go
 
 if exists(select 1 from sys.extended_properties p where
       p.major_id = object_id('DOCUMENTO_IDENTIFICACAO_TB')
-  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'ID_DOCUMENTO_IDENTIFICACAO')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'CODIGO_TIPO_DOCUMENTO_IDENTIFICACAO')
 )
 begin
    declare @CurrentUser sysname
 select @CurrentUser = user_name()
 execute sp_dropextendedproperty 'MS_Description', 
-   'user', @CurrentUser, 'table', 'DOCUMENTO_IDENTIFICACAO_TB', 'column', 'ID_DOCUMENTO_IDENTIFICACAO'
+   'user', @CurrentUser, 'table', 'DOCUMENTO_IDENTIFICACAO_TB', 'column', 'CODIGO_TIPO_DOCUMENTO_IDENTIFICACAO'
 
 end
 
 
 select @CurrentUser = user_name()
 execute sp_addextendedproperty 'MS_Description', 
-   'Identificador do documento de identificação',
-   'user', @CurrentUser, 'table', 'DOCUMENTO_IDENTIFICACAO_TB', 'column', 'ID_DOCUMENTO_IDENTIFICACAO'
+   'Identifica o código do tipo de participante utilizando no sistema.
+   1 - Associado;
+   2 - CASSI Família;
+   3 - Aposentado;
+   4 - FuncCASSI;
+   
+   OBS: São informações de exemplo esses código não estão sendo utilizados no sistema real.',
+   'user', @CurrentUser, 'table', 'DOCUMENTO_IDENTIFICACAO_TB', 'column', 'CODIGO_TIPO_DOCUMENTO_IDENTIFICACAO'
 go
 
 /*==============================================================*/
@@ -285,14 +312,14 @@ go
 /* Table: ORDEM_SERVICO_TB                                      */
 /*==============================================================*/
 create table ORDEM_SERVICO_TB (
-   IDENTIFICADOR_ORDEM_SERVICO int                  identity,
+   ID_ORDEM_SERVICO     int                  identity,
    ID_PESSOA            int                  not null,
    DATA_REGISTRO        datetime             not null,
    DATA_FIM_VIGENCIA    datetime             null,
-   DESCRICAO            varchar(255)         null,
+   DESCRICAO_ORDEM_SERVICO varchar(255)         null,
    VALOR                decimal(15)          not null default 0
       constraint CKC_VALOR_ORDEM_SE check (VALOR >= 0),
-   constraint PK_ORDEM_SERVICO_TB primary key nonclustered (IDENTIFICADOR_ORDEM_SERVICO)
+   constraint PK_ORDEM_SERVICO_TB primary key nonclustered (ID_ORDEM_SERVICO)
 )
 go
 
@@ -474,7 +501,7 @@ go
 /*==============================================================*/
 create table TELEFONE_TB (
    ID_TELEFONE          int                  identity,
-   ID_PESSOA            int                  null,
+   ID_PESSOA            int                  not null,
    PREFIXO_TELEFONE     varchar(10)          not null,
    NUMERO_TELEFONE      varchar(50)          not null,
    OBSERVACAO           varchar(255)         null,
@@ -527,21 +554,21 @@ ID_PESSOA ASC
 go
 
 /*==============================================================*/
-/* Table: USUARIO_SETOR_TB                                      */
+/* Table: USUARIO_DEPARTAMENTO_TB                               */
 /*==============================================================*/
-create table USUARIO_SETOR_TB (
-   ID_USUARIO_SETOR     int                  identity,
-   ID_FUNCAO_FUNCIONARIO int                  null,
-   IDENTIFICADOR_SETOR_FUNCIONARIO int                  null,
-   ID_USUARIO           int                  null,
-   constraint PK_USUARIO_SETOR_TB primary key nonclustered (ID_USUARIO_SETOR)
+create table USUARIO_DEPARTAMENTO_TB (
+   ID_USUARIO_DEPARTAMENTO int                  identity,
+   ID_USUARIO_FUNCAO    int                  not null,
+   ID_USUARIO_SETOR     int                  not null,
+   ID_USUARIO           int                  not null,
+   constraint PK_USUARIO_DEPARTAMENTO_TB primary key nonclustered (ID_USUARIO_DEPARTAMENTO)
 )
 go
 
 /*==============================================================*/
 /* Index: RELATIONSHIP_12_FK                                    */
 /*==============================================================*/
-create index RELATIONSHIP_12_FK on USUARIO_SETOR_TB (
+create index RELATIONSHIP_12_FK on USUARIO_DEPARTAMENTO_TB (
 ID_USUARIO ASC
 )
 go
@@ -552,11 +579,11 @@ go
 create table USUARIO_TB (
    ID_USUARIO           int                  identity,
    ID_PESSOA            int                  not null,
-   ID_TIPO_USUARIO      int                  not null,
-   DESATIVADO           tinyint              not null default 0,
+   CODIGO_TIPO_USUARIO  int                  not null,
+   DESATIVADO           bit                  not null default 0,
    DESCRICAO_DESATIVACAO varchar(255)         null,
    SENHA                varchar(15)          not null,
-   ALTERACAO_SENHA      tinyint              not null default 1,
+   ALTERACAO_SENHA      bit                  not null default 1,
    constraint PK_USUARIO_TB primary key nonclustered (ID_USUARIO)
 )
 go
@@ -627,7 +654,7 @@ alter table TELEFONE_TB
       references PESSOA_TB (ID_PESSOA)
 go
 
-alter table USUARIO_SETOR_TB
+alter table USUARIO_DEPARTAMENTO_TB
    add constraint FK_USUARIO__RELATIONS_USUARIO_ foreign key (ID_USUARIO)
       references USUARIO_TB (ID_USUARIO)
 go

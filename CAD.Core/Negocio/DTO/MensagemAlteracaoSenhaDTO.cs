@@ -1,4 +1,4 @@
-﻿namespace Cad.Core.Negocio.Servico.Interface
+﻿namespace CAD.Core.Negocio.DTO
 {
     public class MensagemAlteracaoSenhaDTO
     {

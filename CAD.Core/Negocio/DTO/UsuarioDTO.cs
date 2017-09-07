@@ -1,4 +1,4 @@
-namespace Cad.Core.Negocio.DTO
+namespace CAD.Core.Negocio.DTO
 {
     public class UsuarioDTO
     {

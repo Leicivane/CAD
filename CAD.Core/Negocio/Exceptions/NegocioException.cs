@@ -1,4 +1,4 @@
-namespace Cad.Core.Negocio.Exception
+namespace CAD.Core.Negocio.Exceptions
 {
     public class NegocioException : System.Exception
     {

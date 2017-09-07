@@ -51,20 +51,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CAD.cs" />
-    <Compile Include="DocumentoIdentificacao.cs" />
-    <Compile Include="Endereco.cs" />
-    <Compile Include="OrdemServico.cs" />
-    <Compile Include="Pessoa.cs" />
+    <Compile Include="Contexto\CADContext.cs" />
+    <Compile Include="Entidades\DocumentoIdentificacao.cs" />
+    <Compile Include="Entidades\Endereco.cs" />
+    <Compile Include="Entidades\OrdemServico.cs" />
+    <Compile Include="Entidades\Pessoa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Telefone.cs" />
-    <Compile Include="UsuarioSetor.cs" />
-    <Compile Include="Usuario.cs" />
+    <Compile Include="Repositorios\Interfaces\IRepositorio.cs" />
+    <Compile Include="Repositorios\Interfaces\IRepositorioAtualizavel.cs" />
+    <Compile Include="Repositorios\Repositorio.cs" />
+    <Compile Include="Repositorios\RepositorioAtualizavel.cs" />
+    <Compile Include="Entidades\Telefone.cs" />
+    <Compile Include="Entidades\UsuarioDepartamento.cs" />
+    <Compile Include="Entidades\Usuario.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

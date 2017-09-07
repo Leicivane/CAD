@@ -1,6 +1,6 @@
-﻿using System.Web.Mvc;
-using Cad.Core.Negocio.Exception;
+﻿using CAD.Core.Negocio.Exceptions;
 using CAD.Infraestrutura.Extensions;
+using System.Web.Mvc;
 
 namespace CAD.Infraestrutura.Seguranca.Filters
 {
@@ -18,7 +18,6 @@ namespace CAD.Infraestrutura.Seguranca.Filters
                 TratarErrosNegocio(excecao as NegocioException, filterContext);
 
                 TratarApresentacao(filterContext);
-
             }
             else
             {
