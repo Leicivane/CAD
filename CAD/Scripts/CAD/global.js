@@ -4,7 +4,8 @@
 
 Eventos = {
     ConfigurarValidation: function() {
-
+        debugger;
+        // TODO: Colocar um tratamento para quando a página carregar já com o erro (.span.field-validation-error)
         $(".validation-summary-errors").addClass("alert alert-danger");
         var forms = $("form");
 
