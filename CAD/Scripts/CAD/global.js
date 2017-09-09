@@ -3,20 +3,22 @@
 });
 
 Eventos = {
-    ConfigurarValidation: function() {
+    ConfigurarValidation: function () {
         debugger;
         // TODO: Colocar um tratamento para quando a página carregar já com o erro (.span.field-validation-error)
-        $(".validation-summary-errors").addClass("alert alert-danger");
+        if ($(".validation-summary-errors ul li").is(":visible")) {
+            $(".validation-summary-errors").addClass("alert alert-danger");
+        }
         var forms = $("form");
 
-        forms.each(function(indice, form) {
+        forms.each(function (indice, form) {
 
             var validator = $(form).data("validator");
 
             var oldErrorPlacement = validator.settings.errorPlacement;
             var oldSuccess = validator.settings.success;
 
-            validator.settings.errorPlacement = function(error, el) {
+            validator.settings.errorPlacement = function (error, el) {
                 oldErrorPlacement(error, el);
                 if (error.text() !== "") {
                     el.closest(".form-group").addClass("has-error");
@@ -27,10 +29,12 @@ Eventos = {
                 }
             };
 
-            validator.settings.sucess = function(label, b) {
+            validator.settings.sucess = function (label, b) {
                 label.parents('.form-group').removeClass('has-error');
                 oldSuccess(label);
             };
         });
+
+        $(".field-validation-error").closest(".form-group").addClass("has-error").end().addClass("text-danger");
     }
 };

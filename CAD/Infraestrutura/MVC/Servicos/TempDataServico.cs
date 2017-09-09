@@ -1,7 +1,7 @@
-using System.Web.Mvc;
 using CAD.Infraestrutura.Interface;
+using System.Web.Mvc;
 
-namespace CAD.Infraestrutura.MVC
+namespace CAD.Infraestrutura.MVC.Servicos
 {
     public class TempDataServico : ITempDataServico
     {

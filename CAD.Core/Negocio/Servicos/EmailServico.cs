@@ -1,6 +1,5 @@
 using CAD.Core.Negocio.DTO;
 using CAD.Core.Negocio.Recursos;
-using CAD.Core.Negocio.Servicos.Interface;
 using System;
 using System.Net.Mail;
 
@@ -10,11 +9,12 @@ namespace CAD.Core.Negocio.Servicos
     {
         private readonly RemetenteMensagemDTO _remetenteMensagem;
 
-        public EmailServico() : this(new RemetenteMensagemDTO
-        {
-            Email = "meajuda@cadsys.com.br",
-            Nome = "Me Ajuda - CadSys"
-        })
+        public EmailServico() : this(
+            new RemetenteMensagemDTO
+            {
+                Email = "meajuda@cadsys.com.br",
+                Nome = "Me Ajuda - CadSys"
+            })
         {
 
         }
@@ -28,8 +28,8 @@ namespace CAD.Core.Negocio.Servicos
         {
             var msg = new MensagemAlteracaoSenhaDTO
             {
-                Texto = Email.EsqueciSenha,
-                Destinatario = destinatario
+                Texto = Email.EsqueciSenha.Replace("{NOME}", destinatario.Nome).Replace("{URL}", destinatario.Url),
+                Destinatario = destinatario,
             };
 
             return msg;

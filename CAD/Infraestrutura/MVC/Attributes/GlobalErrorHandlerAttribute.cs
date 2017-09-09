@@ -2,7 +2,7 @@
 using CAD.Infraestrutura.Extensions;
 using System.Web.Mvc;
 
-namespace CAD.Infraestrutura.Seguranca.Filters
+namespace CAD.Infraestrutura.MVC.Attributes
 {
     public class GlobalErrorHandlerAttribute : HandleErrorAttribute
     {

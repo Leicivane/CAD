@@ -1,7 +1,7 @@
 using System;
 using System.Web.Mvc;
 
-namespace CAD.Infraestrutura.Seguranca.Filters
+namespace CAD.Infraestrutura.MVC.Attributes
 {
     public class RestaurarViewDataAttribute : ActionFilterAttribute
     {

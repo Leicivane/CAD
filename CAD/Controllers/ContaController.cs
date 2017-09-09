@@ -1,7 +1,11 @@
-﻿using CAD.Infraestrutura.Interface;
+﻿using CAD.Core.Negocio.Servicos;
+using CAD.Core.Negocio.Servicos.Interface;
+using CAD.Infraestrutura.Interface;
+using CAD.Infraestrutura.MVC;
+using CAD.Infraestrutura.MVC.ModelBinder;
+using CAD.Infraestrutura.MVC.Servicos;
 using CAD.Models;
 using System.Web.Mvc;
-using CAD.Core.Negocio.Servicos.Interface;
 
 namespace CAD.Controllers
 {
@@ -13,11 +17,11 @@ namespace CAD.Controllers
         private const string Mensagem = "Mensagem";
         private const string ReturnUrl = "ReturnUrl";
 
-        public ContaController(IConfigurationReader configurationReader, IUsuarioServico usuarioServico, ITempDataServico tempDataServico)
+        public ContaController()
         {
-            _configurationReader = configurationReader;
-            _usuarioServico = usuarioServico;
-            _tempDataServico = tempDataServico;
+            _usuarioServico = new UsuarioServico();
+            _tempDataServico = new TempDataServico(TempData);
+            _configurationReader = new ConfigurationReader();
         }
 
         [HttpGet]
@@ -62,6 +66,17 @@ namespace CAD.Controllers
             _usuarioServico.SolicitarMudancaSenha(dto);
 
             _tempDataServico.Adicionar(Mensagem, Core.Negocio.Mensagens.Mensagem.M012);
+            return RedirectToAction("Login");
+        }
+
+        [HttpGet]
+        public ActionResult NovaSenha([ModelBinder(typeof(TokenModelBinder))]int id)
+        {
+            var podeAtualizarSenha = _usuarioServico.VerificarSeDeveAtualizarSenha(id);
+
+            if (podeAtualizarSenha) return View();
+
+            _tempDataServico.Adicionar(Mensagem, "Você não pediu alteração de senha ou sua senha já foi atualizada. Clique abaixo para entrar");
             return RedirectToAction("Login");
         }
     }

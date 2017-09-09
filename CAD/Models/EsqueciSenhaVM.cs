@@ -5,6 +5,7 @@ using CAD.Core.Negocio.DTO;
 using CAD.Core.Negocio.Servicos.Interface;
 using CAD.Core.Util.Guard;
 using CAD.Core.Util.Mapeador;
+using CAD.Infraestrutura.MVC.Attributes;
 
 namespace CAD.Models
 {

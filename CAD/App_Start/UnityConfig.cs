@@ -1,5 +1,5 @@
-using System;
 using Microsoft.Practices.Unity;
+using System;
 
 namespace CAD
 {
@@ -35,7 +35,6 @@ namespace CAD
             // container.LoadConfiguration();
 
             // TODO: Register your types here
-            // container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterTypes(
                 AllClasses.FromLoadedAssemblies(),
                 WithMappings.FromMatchingInterface,

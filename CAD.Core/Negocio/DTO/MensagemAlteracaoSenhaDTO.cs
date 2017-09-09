@@ -5,6 +5,6 @@
         public DestinatarioMensagemDTO Destinatario { get; set; }
         public string Texto { get; set; }
 
-        public string Assunto => "Altera��o de Email - CADSYS";
+        public string Assunto => "Alteração de Email - CADSYS";
     }
 }

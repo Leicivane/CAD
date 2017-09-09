@@ -6,5 +6,6 @@ namespace CAD.Core.Negocio.Servicos.Interface
     {
         void Autenticar(UsuarioDTO usuario);
         void SolicitarMudancaSenha(UsuarioNovaSenhaDTO dto);
+        bool VerificarSeDeveAtualizarSenha(int idUsuario);
     }
 }

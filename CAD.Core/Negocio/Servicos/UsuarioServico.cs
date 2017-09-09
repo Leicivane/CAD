@@ -2,14 +2,17 @@
 using Cad.Data.Entidades;
 using Cad.Data.Repositorios;
 using CAD.Core.Negocio.DTO;
+using CAD.Core.Negocio.Enums;
 using CAD.Core.Negocio.Exceptions;
 using CAD.Core.Negocio.Mensagens;
 using CAD.Core.Negocio.Servicos.Interface;
+using CAD.Core.Util.Extensao;
 using CAD.Core.Util.Guard;
+using System;
 using System.Linq;
+using System.Web;
 using System.Web.Configuration;
 using System.Web.Security;
-using CAD.Core.Negocio.Enums;
 
 namespace CAD.Core.Negocio.Servicos
 {
@@ -42,23 +45,35 @@ namespace CAD.Core.Negocio.Servicos
 
         public void SolicitarMudancaSenha(UsuarioNovaSenhaDTO usuario)
         {
-            //if (usuario == null) throw new ArgumentNullException(nameof(usuario));
+            if (usuario == null) throw new ArgumentNullException(nameof(usuario));
 
-            //var usuarioEncontrado = _repositorioUsuario.Obter(u => u.Login == usuario.Login);
-            //if (usuarioEncontrado == null) return;
+            var usuarioEncontrado = _repositorioUsuario
+                .Obter(u =>
+                u.Pessoa.DocumentosIdentificacao.Any(d => d.NumeroDocumentoIdentificacao == usuario.Login 
+                        && d.CodigoTipoDocumentoIdentificacao == (int)TipoDocumento.CPF) 
+                        && u.Pessoa.EmailPessoa == usuario.Email);
 
-            //usuarioEncontrado.HasAlteracaoSenha = true;
-            //_repositorioUsuario.Atualizar(usuarioEncontrado);
-            //_repositorioUsuario.SalvarAlteracoes();
+            if (usuarioEncontrado == null) return;
 
+            usuarioEncontrado.AlteracaoSenha = true;
+            _repositorioUsuario.Atualizar(usuarioEncontrado);
+            _repositorioUsuario.SalvarAlteracoes();
 
-            //var d = new DestinatarioMensagemDTO()
-            //{
-            //    Nome = usuarioEncontrado.Login,
-            //    Email = usuario.Email
-            //};
-            //var mensagem = _servicoEmail.ObterMensagemAlteracaoSenha(d);
-            //_servicoEmail.EnviarMensagem(mensagem);
+            var request = HttpContext.Current.Request;
+            var destinatario = new DestinatarioMensagemDTO
+            {
+                Nome = usuarioEncontrado.Pessoa.NomePessoa,
+                Email = usuario.Email,
+                Url = $"{request.Url.Scheme}://{request.Url.Authority}/Conta/NovaSenha/{usuarioEncontrado.IdentificadorUsuario.ToString().Criptografado()}"
+            };
+            var mensagem = _servicoEmail.ObterMensagemAlteracaoSenha(destinatario);
+            _servicoEmail.EnviarMensagem(mensagem);
+        }
+
+        public bool VerificarSeDeveAtualizarSenha(int idUsuario)
+        {
+            var usuarioEncontrado = _repositorioUsuario.Obter(idUsuario);
+            return !(usuarioEncontrado == null || usuarioEncontrado.AlteracaoSenha == false);
         }
     }
 }

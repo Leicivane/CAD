@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using CAD.Infraestrutura.Seguranca.Filters;
+using CAD.Infraestrutura.MVC.Attributes;
 
 namespace CAD
 {

@@ -31,7 +31,7 @@
 
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Login, new { @class = "control-label" })
-                                @Html.TextBoxFor(m => m.Login, new { @class = "form-control", data_mask = "000.000.000-00", data_mask_reverse = "true" })
+                                @Html.TextBoxFor(m => m.Login, new { @class = "form-control", data_mask = "000.000.000-00" })
                                 @Html.ValidationMessageFor(m => m.Login)
                             </div>
                             <div class="form-group">
