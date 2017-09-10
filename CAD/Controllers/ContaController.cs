@@ -7,6 +7,7 @@ using CAD.Infraestrutura.MVC.ModelBinder;
 using CAD.Infraestrutura.MVC.Servicos;
 using CAD.Models;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace CAD.Controllers
 {
@@ -28,6 +29,7 @@ namespace CAD.Controllers
         [HttpGet]
         public ActionResult Login(string returnUrl = null)
         {
+            FormsAuthentication.SignOut();
             ViewBag.Mensagem = _tempDataServico.Buscar(MensagemKey);
             _tempDataServico.Adicionar(ReturnUrlKey, returnUrl);
             return View("Login");
