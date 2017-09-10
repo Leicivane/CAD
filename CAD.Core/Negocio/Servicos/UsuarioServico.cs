@@ -75,5 +75,30 @@ namespace CAD.Core.Negocio.Servicos
             var usuarioEncontrado = _repositorioUsuario.Obter(idUsuario);
             return !(usuarioEncontrado == null || usuarioEncontrado.AlteracaoSenha == false);
         }
+
+        public void MudarSenha(UsuarioMudancaSenhaDTO usuarioMudancaSenhaDTO)
+        {
+
+            var podeMudarSenha = VerificarSeDeveAtualizarSenha(usuarioMudancaSenhaDTO.IdentificadorUsuario);
+
+            if (!podeMudarSenha) throw new NegocioException(Mensagem.M014);
+
+            var usuario = _repositorioUsuario.Obter(usuarioMudancaSenhaDTO.IdentificadorUsuario);
+
+            if (usuario == null) throw new NegocioException(Mensagem.M015);
+
+            var crypSenha = FormsAuthentication.HashPasswordForStoringInConfigFile(usuarioMudancaSenhaDTO.Senha, FormsAuthPasswordFormat.SHA1.ToString());
+            usuario.Senha = crypSenha;
+            usuario.AlteracaoSenha = false;
+
+            _repositorioUsuario.Atualizar(usuario);
+            _repositorioUsuario.SalvarAlteracoes();
+        }
+    }
+
+    public class UsuarioMudancaSenhaDTO
+    {
+        public int IdentificadorUsuario { get; set; }
+        public string Senha { get; set; }
     }
 }

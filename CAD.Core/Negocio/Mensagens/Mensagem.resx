@@ -132,4 +132,19 @@
   <data name="M012" xml:space="preserve">
     <value>Foi enviado um email com o pedido de alteração de senha. Acesse seu email para alterar a senha</value>
   </data>
+  <data name="M013" xml:space="preserve">
+    <value>As senhas não são iguais</value>
+  </data>
+  <data name="M014" xml:space="preserve">
+    <value>Você não pediu alteração de senha ou sua senha já foi atualizada. Clique abaixo para entrar</value>
+  </data>
+  <data name="M015" xml:space="preserve">
+    <value>Registro não encontrado</value>
+  </data>
+  <data name="M016" xml:space="preserve">
+    <value>Sua senha foi alterada com sucesso. Clique abaixo para entrar</value>
+  </data>
+  <data name="M017" xml:space="preserve">
+    <value>A quantidade máxima de caracteres para senha é de 15</value>
+  </data>
 </root>

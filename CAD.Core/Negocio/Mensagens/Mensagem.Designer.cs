@@ -104,5 +104,50 @@ namespace CAD.Core.Negocio.Mensagens {
                 return ResourceManager.GetString("M012", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to As senhas não são iguais.
+        /// </summary>
+        public static string M013 {
+            get {
+                return ResourceManager.GetString("M013", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Você não pediu alteração de senha ou sua senha já foi atualizada. Clique abaixo para entrar.
+        /// </summary>
+        public static string M014 {
+            get {
+                return ResourceManager.GetString("M014", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registro não encontrado.
+        /// </summary>
+        public static string M015 {
+            get {
+                return ResourceManager.GetString("M015", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sua senha foi alterada com sucesso. Clique abaixo para entrar.
+        /// </summary>
+        public static string M016 {
+            get {
+                return ResourceManager.GetString("M016", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A quantidade máxima de caracteres para senha é de 15.
+        /// </summary>
+        public static string M017 {
+            get {
+                return ResourceManager.GetString("M017", resourceCulture);
+            }
+        }
     }
 }

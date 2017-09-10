@@ -1,4 +1,5 @@
-﻿using CAD.Core.Negocio.Servicos;
+﻿using CAD.Core.Negocio.Mensagens;
+using CAD.Core.Negocio.Servicos;
 using CAD.Core.Negocio.Servicos.Interface;
 using CAD.Infraestrutura.Interface;
 using CAD.Infraestrutura.MVC;
@@ -14,8 +15,8 @@ namespace CAD.Controllers
         private readonly IConfigurationReader _configurationReader;
         private readonly IUsuarioServico _usuarioServico;
         private readonly ITempDataServico _tempDataServico;
-        private const string Mensagem = "Mensagem";
-        private const string ReturnUrl = "ReturnUrl";
+        private const string MensagemKey = "Mensagem";
+        private const string ReturnUrlKey = "ReturnUrl";
 
         public ContaController()
         {
@@ -27,8 +28,8 @@ namespace CAD.Controllers
         [HttpGet]
         public ActionResult Login(string returnUrl = null)
         {
-            ViewBag.Mensagem = _tempDataServico.Buscar(Mensagem);
-            _tempDataServico.Adicionar(ReturnUrl, returnUrl);
+            ViewBag.Mensagem = _tempDataServico.Buscar(MensagemKey);
+            _tempDataServico.Adicionar(ReturnUrlKey, returnUrl);
             return View("Login");
         }
 
@@ -40,8 +41,8 @@ namespace CAD.Controllers
             var dto = LoginVM.Converter(model);
             _usuarioServico.Autenticar(dto);
 
-            var returnUrl = _tempDataServico.Buscar<string>(ReturnUrl);
-            return Redirect(string.IsNullOrEmpty(returnUrl) ? _configurationReader.GetAppSetting(ReturnUrl) : returnUrl);
+            var returnUrl = _tempDataServico.Buscar<string>(ReturnUrlKey);
+            return Redirect(string.IsNullOrEmpty(returnUrl) ? _configurationReader.GetAppSetting(ReturnUrlKey) : returnUrl);
         }
 
         [HttpGet, Authorize]
@@ -65,7 +66,7 @@ namespace CAD.Controllers
 
             _usuarioServico.SolicitarMudancaSenha(dto);
 
-            _tempDataServico.Adicionar(Mensagem, Core.Negocio.Mensagens.Mensagem.M012);
+            _tempDataServico.Adicionar(MensagemKey, Core.Negocio.Mensagens.Mensagem.M012);
             return RedirectToAction("Login");
         }
 
@@ -74,9 +75,26 @@ namespace CAD.Controllers
         {
             var podeAtualizarSenha = _usuarioServico.VerificarSeDeveAtualizarSenha(id);
 
-            if (podeAtualizarSenha) return View();
+            if (podeAtualizarSenha)
+            {
+                var novaSenhaModel = new NovaSenhaVM
+                {
+                    IdentificadorUsuario = id
+                };
+                return View("NovaSenha", novaSenhaModel);
+            }
 
-            _tempDataServico.Adicionar(Mensagem, "Você não pediu alteração de senha ou sua senha já foi atualizada. Clique abaixo para entrar");
+            _tempDataServico.Adicionar(MensagemKey, Mensagem.M014);
+            return RedirectToAction("Login");
+        }
+
+        [HttpPost]
+        public ActionResult MudarSenha(NovaSenhaVM model)
+        {
+            var dto = NovaSenhaVM.Converter(model);
+            _usuarioServico.MudarSenha(dto);
+
+            _tempDataServico.Adicionar(MensagemKey, Mensagem.M016);
             return RedirectToAction("Login");
         }
     }

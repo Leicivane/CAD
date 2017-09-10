@@ -28,7 +28,7 @@ namespace Cad.Data.Entidades
         [StringLength(255), Column("DESCRICAO_DESATIVACAO")]
         public string DescricaoDesativacao { get; set; }
 
-        [StringLength(15), Required, Column("SENHA")]
+        [StringLength(40), Required, Column("SENHA")]
         public string Senha { get; set; }
 
         [Column("ALTERACAO_SENHA")]

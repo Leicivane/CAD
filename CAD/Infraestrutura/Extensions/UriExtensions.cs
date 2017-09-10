@@ -9,6 +9,7 @@ namespace CAD.Infraestrutura.Extensions
     {
         public static RouteValueDictionary GetRouteData(this Uri uri)
         {
+            if (uri == null) return RedirectRotaPadrao();
             // Split the url to url + query string
             var fullUrl = uri.ToString();
             var questionMarkIndex = fullUrl.IndexOf('?');
@@ -39,6 +40,19 @@ namespace CAD.Infraestrutura.Extensions
                 action = actionName,
                 area = areaName
             });
+        }
+
+        private static RouteValueDictionary RedirectRotaPadrao()
+        {
+            var defaultRoute = new RouteValueDictionary(new
+            {
+                controller = "Index",
+                action = "Conta",
+                area = string.Empty
+            });
+
+
+            return defaultRoute;
         }
     }
 }

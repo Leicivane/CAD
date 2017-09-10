@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2012                    */
-/* Created on:     08/09/2017 19:32:32                          */
+/* Created on:     10/09/2017 13:23:22                          */
 /*==============================================================*/
 
 
@@ -582,7 +582,7 @@ create table USUARIO_TB (
    CODIGO_TIPO_USUARIO  int                  not null,
    DESATIVADO           bit                  not null default 0,
    DESCRICAO_DESATIVACAO varchar(255)         null,
-   SENHA                varchar(15)          not null,
+   SENHA                varchar(40)          not null,
    ALTERACAO_SENHA      bit                  not null default 1,
    constraint PK_USUARIO_TB primary key nonclustered (ID_USUARIO)
 )

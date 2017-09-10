@@ -1,7 +1,9 @@
 ﻿using Cad.Data.Contexto;
 using Cad.Data.Repositorios.Interfaces;
+using System;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.Data.Entity.Validation;
 
 namespace Cad.Data.Repositorios
 {
@@ -41,7 +43,20 @@ namespace Cad.Data.Repositorios
 
         public void SalvarAlteracoes()
         {
-            Context.SaveChanges();
+
+            try
+            {
+                Context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                var exception = ex as DbEntityValidationException;
+                if (exception != null)
+                {
+                    var e = exception.EntityValidationErrors;
+                }
+                throw;
+            }
         }
     }
 }

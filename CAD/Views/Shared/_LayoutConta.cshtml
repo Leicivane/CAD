@@ -1,5 +1,9 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@{
+    Layout = null;
+}
+
+
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,14 +11,18 @@
     <title>@ViewBag.Title - CADSys</title>
     <meta name="description" content="CAD" />
     @Styles.Render("~/css")
-    @RenderSection("styles", required: false)
 </head>
-<body>
+<body class="bg-conta">
     <div class="container">
-        @RenderBody()
+        <div class="row">
+            <div class="col-md-12">
+            </div>
+        </div>
+        <div class="row meio">
+           @RenderBody()
+        </div>
     </div>
 
     @Scripts.Render("~/js")
-    @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -23,7 +23,6 @@ namespace CAD.Infraestrutura.MVC.Servicos
         public object Buscar(string key)
         {
             var valor = _tempData[key];
-            _tempData.Keep(key);
             return valor;
         }
 
