@@ -1,13 +1,11 @@
 using System.Linq;
 using System.Web.Mvc;
-using CAD.App_Start;
 using Microsoft.Practices.Unity.Mvc;
-using UnityWebActivator = CAD.UnityWebActivator;
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(UnityWebActivator), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(UnityWebActivator), "Shutdown")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(CAD.App_Start.UnityWebActivator), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(CAD.App_Start.UnityWebActivator), "Shutdown")]
 
-namespace CAD
+namespace CAD.App_Start
 {
     /// <summary>Provides the bootstrapping for integrating Unity with ASP.NET MVC.</summary>
     public static class UnityWebActivator

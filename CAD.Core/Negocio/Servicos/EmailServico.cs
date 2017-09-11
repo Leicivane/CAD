@@ -37,7 +37,7 @@ namespace CAD.Core.Negocio.Servicos
 
         public void EnviarMensagem(MensagemAlteracaoSenhaDTO mensagem)
         {
-            if (mensagem == null) throw new ArgumentNullException(nameof(mensagem));
+            if (mensagem == null) throw new ArgumentNullException("mensagem");
 
             var from = new MailAddress(_remetenteMensagem.Email, _remetenteMensagem.Nome);
             var to = new MailAddress(mensagem.Destinatario.Email, mensagem.Destinatario.Nome);

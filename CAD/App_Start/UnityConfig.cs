@@ -1,7 +1,7 @@
-using Microsoft.Practices.Unity;
 using System;
+using Microsoft.Practices.Unity;
 
-namespace CAD
+namespace CAD.App_Start
 {
     /// <summary>
     /// Specifies the Unity configuration for the main container.
@@ -35,11 +35,7 @@ namespace CAD
             // container.LoadConfiguration();
 
             // TODO: Register your types here
-            container.RegisterTypes(
-                AllClasses.FromLoadedAssemblies(),
-                WithMappings.FromMatchingInterface,
-                WithName.Default,
-                WithLifetime.Transient);
+            // container.RegisterType<IProductRepository, ProductRepository>();
         }
     }
 }

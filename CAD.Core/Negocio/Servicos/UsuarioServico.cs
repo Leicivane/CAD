@@ -45,7 +45,7 @@ namespace CAD.Core.Negocio.Servicos
 
         public void SolicitarMudancaSenha(UsuarioNovaSenhaDTO usuario)
         {
-            if (usuario == null) throw new ArgumentNullException(nameof(usuario));
+            if (usuario == null) throw new ArgumentNullException("usuario");
 
             var usuarioEncontrado = _repositorioUsuario
                 .Obter(u =>
