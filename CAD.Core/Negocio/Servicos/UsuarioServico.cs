@@ -64,7 +64,8 @@ namespace CAD.Core.Negocio.Servicos
             {
                 Nome = usuarioEncontrado.Pessoa.NomePessoa,
                 Email = usuario.Email,
-                Url = $"{request.Url.Scheme}://{request.Url.Authority}/Conta/NovaSenha/{usuarioEncontrado.IdentificadorUsuario.ToString().Criptografado()}"
+                Url = string.Format("{0}://{1}/Conta/NovaSenha/{2}",request.Url.Scheme,request.Url.Authority,
+                usuarioEncontrado.IdentificadorUsuario.ToString().Criptografado())
             };
             var mensagem = _servicoEmail.ObterMensagemAlteracaoSenha(destinatario);
             _servicoEmail.EnviarMensagem(mensagem);
