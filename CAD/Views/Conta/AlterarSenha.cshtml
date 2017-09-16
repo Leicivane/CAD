@@ -1,14 +1,14 @@
-﻿@model CAD.Models.LoginVM
+﻿@model CAD.Models.AlterarSenhaVM
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Alteração de Senha";
     Layout = "~/Views/Shared/_LayoutConta.cshtml";
 }
 
-@using (Html.BeginForm("Login", "Conta"))
-            {
+@using (Html.BeginForm("AlterarSenha", "Conta", FormMethod.Post))
+{
     <div class="col-sm-6 col-sm-offset-3 col-xs-12">
         <div class="panel panel-default">
-            <div class="panel-heading">Login - CADSYS</div>
+            <div class="panel-heading">Alteração de Senha - CADSYS</div>
             <div class="panel-body">
                 @if (ViewBag.Mensagem != null)
                 {
@@ -32,11 +32,20 @@
                     @Html.PasswordFor(m => m.Senha, new { @class = "form-control" })
                     @Html.ValidationMessageFor(m => m.Senha)
                 </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.NovaSenha, new { @class = "control-label" })
+                    @Html.PasswordFor(m => m.NovaSenha, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.NovaSenha)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ConfirmacaoSenha, new { @class = "control-label" })
+                    @Html.PasswordFor(m => m.ConfirmacaoSenha, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ConfirmacaoSenha)
+                </div>
             </div>
             <div class="panel-footer">
                 <div class="pull-left" style="margin-top: 0.5em;">
-                    @Html.CheckBoxFor(m => m.LembrarSenha)
-                    @Html.LabelFor(m => m.LembrarSenha)
+
                 </div>
                 <div class="pull-left" style="margin: 0.5em;">
                 </div>
@@ -47,8 +56,5 @@
                 <div style="clear: both"></div>
             </div>
         </div>
-        @Html.ActionLink("Esqueceu a senha?", "EsqueciSenha", "Conta", null, new { @class = "control-label" })
-        <br/>
-        @Html.ActionLink("Alterar a senha?", "AlterarSenha", "Conta", null, new { @class = "control-label" })
     </div>
 }

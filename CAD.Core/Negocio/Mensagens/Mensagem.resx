@@ -120,6 +120,9 @@
   <data name="M001" xml:space="preserve">
     <value>Usuário ou senha inválido</value>
   </data>
+  <data name="M002" xml:space="preserve">
+    <value>Senha alterada com sucesso!</value>
+  </data>
   <data name="M003" xml:space="preserve">
     <value>Campos obrigatórios em branco!</value>
   </data>

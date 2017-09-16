@@ -61,6 +61,8 @@
     <Compile Include="Negocio\DTO\UsuarioNovaSenhaDTO.cs" />
     <Compile Include="Negocio\Enums\TipoDocumento.cs" />
     <Compile Include="Negocio\Enums\TipoUsuario.cs" />
+    <Compile Include="Negocio\Servicos\Interface\UsuarioAlterarSenhaDTO.cs" />
+    <Compile Include="Negocio\Servicos\UsuarioMudancaSenhaDTO.cs" />
     <Compile Include="Negocio\Servicos\UsuarioServico.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\Extensao\StringUtil.cs" />

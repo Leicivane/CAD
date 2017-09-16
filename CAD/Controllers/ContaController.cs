@@ -99,5 +99,23 @@ namespace CAD.Controllers
             _tempDataServico.Adicionar(MensagemKey, Mensagem.M016);
             return RedirectToAction("Login");
         }
+
+        [HttpGet]
+        public ActionResult AlterarSenha()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AlterarSenha(AlterarSenhaVM model)
+        {
+            if (!ModelState.IsValid) return View();
+
+            var dto = AlterarSenhaVM.Converter(model);
+            _usuarioServico.AlterarSenha(dto);
+
+            _tempDataServico.Adicionar(MensagemKey, Mensagem.M002);
+            return RedirectToAction("Login");
+        }
     }
 }

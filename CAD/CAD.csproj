@@ -142,6 +142,7 @@
     <Compile Include="Infraestrutura\MVC\Servicos\TempDataServico.cs" />
     <Compile Include="Infraestrutura\MVC\Attributes\GlobalErrorHandlerAttribute.cs" />
     <Compile Include="Infraestrutura\MVC\Attributes\RestaurarViewDataAttribute.cs" />
+    <Compile Include="Models\AlterarSenhaVM.cs" />
     <Compile Include="Models\Email.cs" />
     <Compile Include="Models\EsqueciSenhaVM.cs" />
     <Compile Include="Models\LoginVM.cs" />
@@ -217,6 +218,7 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\Conta\NovaSenha.cshtml" />
     <Content Include="Views\Shared\_LayoutConta.cshtml" />
+    <Content Include="Views\Conta\AlterarSenha.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

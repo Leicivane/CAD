@@ -95,11 +95,33 @@ namespace CAD.Core.Negocio.Servicos
             _repositorioUsuario.Atualizar(usuario);
             _repositorioUsuario.SalvarAlteracoes();
         }
-    }
 
-    public class UsuarioMudancaSenhaDTO
-    {
-        public int IdentificadorUsuario { get; set; }
-        public string Senha { get; set; }
+        public void AlterarSenha(UsuarioAlterarSenhaDTO alterarSenhaDTO)
+        {
+            var crypSenha = FormsAuthentication.HashPasswordForStoringInConfigFile(alterarSenhaDTO.Senha, FormsAuthPasswordFormat.SHA1.ToString());
+
+            var usuarioEncontrado =
+                _repositorioUsuario.Existe(
+                    u => u.Senha == crypSenha && u.CodigoTipoUsuario == (int)TipoUsuario.Funcionario && u.Pessoa.DocumentosIdentificacao.Any(d => d.CodigoTipoDocumentoIdentificacao == (int)TipoDocumento.CPF && d.NumeroDocumentoIdentificacao == alterarSenhaDTO.Login));
+
+            if (!usuarioEncontrado)
+                throw new NegocioException(Mensagem.M001);
+
+            var usuario =
+                _repositorioUsuario.Obter(
+                    u =>
+                        u.Senha == crypSenha && u.CodigoTipoUsuario == (int) TipoUsuario.Funcionario &&
+                        u.Pessoa.DocumentosIdentificacao.Any(
+                            d =>
+                                d.CodigoTipoDocumentoIdentificacao == (int) TipoDocumento.CPF &&
+                                d.NumeroDocumentoIdentificacao == alterarSenhaDTO.Login));
+
+            var crypNovaSenha = FormsAuthentication.HashPasswordForStoringInConfigFile(alterarSenhaDTO.NovaSenha, FormsAuthPasswordFormat.SHA1.ToString());
+            usuario.Senha = crypNovaSenha;
+            usuario.AlteracaoSenha = false;
+
+            _repositorioUsuario.Atualizar(usuario);
+            _repositorioUsuario.SalvarAlteracoes();
+        }
     }
 }

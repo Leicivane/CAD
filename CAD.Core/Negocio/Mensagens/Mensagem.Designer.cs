@@ -70,6 +70,15 @@ namespace CAD.Core.Negocio.Mensagens {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Senha alterada com sucesso!.
+        /// </summary>
+        public static string M002 {
+            get {
+                return ResourceManager.GetString("M002", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Campos obrigatórios em branco!.
         /// </summary>
         public static string M003 {
