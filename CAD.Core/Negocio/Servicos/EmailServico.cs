@@ -1,7 +1,6 @@
 using CAD.Core.Negocio.DTO;
 using CAD.Core.Negocio.Recursos;
 using System;
-using System.Net;
 using System.Net.Mail;
 
 namespace CAD.Core.Negocio.Servicos
@@ -45,12 +44,12 @@ namespace CAD.Core.Negocio.Servicos
             var mail = new MailMessage(from, to);
             var client = new SmtpClient
             {
-                Port = 587,
-                Host = "smtp.gmail.com",
-                EnableSsl = true,
+                Port = 25,
+                Host = "localhost",
+                //EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential("leicivanemoura@gmail.com", "Maria_Eduarda")
+                //Credentials = new NetworkCredential("leicivanemoura@gmail.com", "Maria_Eduarda")
 
             };
             mail.Subject = mensagem.Assunto;

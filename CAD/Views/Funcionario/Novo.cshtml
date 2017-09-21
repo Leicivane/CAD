@@ -1,0 +1,179 @@
+﻿@model NovoFuncionarioVM
+@{
+    ViewBag.Title = "Novo Funcionário";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h2>
+                Novo Funcionário
+            </h2>
+        </div>
+    </div>
+    <div class="col-md-12">
+        @using (Html.BeginForm("Novo", "Funcionario", FormMethod.Post))
+        {
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(s => s.Nome, new { @class = "control-label" })
+                        @Html.TextBoxFor(s => s.Nome, new { @class = "form-control", placeholder = "Nome" })
+                        @Html.ValidationMessageFor(s => s.Nome)
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(s => s.Sobrenome, new { @class = "control-label" })
+                        @Html.TextBoxFor(s => s.Sobrenome, new { @class = "form-control", placeholder = "Sobrenome" })
+                        @Html.ValidationMessageFor(s => s.Sobrenome)
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(s => s.CPF, new { @class = "control-label" })
+                        @Html.TextBoxFor(s => s.CPF, new { @class = "form-control", placeholder = "CPF", data_mask= "000.000.000-00" })
+                        @Html.ValidationMessageFor(s => s.CPF)
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(s => s.RG, new { @class = "control-label" })
+                    @Html.TextBoxFor(s => s.RG, new { @class = "form-control", placeholder = "CPF", data_mask = "0.000.000" })
+                    @Html.ValidationMessageFor(s => s.RG)
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Data de Nascimento:</label>
+                        <input type="text" id="datanascimento" name="datanascimento" class="form-control" data-provide="datepicker" data-mask="00/00/0000" />
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="control-label">Sexo:</label>
+                        <br />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">E-mail:</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="E-mail" />
+                    </div>
+                </div>
+                <div class='col-md-5'>
+                    <label>Endereço:</label>
+                    <input type="text" id="endereco" name="endereco" class="form-control" placeholder="Endereço" data-obrigatorio-endereco />
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class='col-md-3'>
+                    <label>Bairro:</label>
+                    <input type="text" id="bairro" name="bairro" class="form-control" placeholder="Bairro" data-obrigatorio-endereco />
+                </div>
+                <div class='col-md-2'>
+                    <label>Cidade:</label>
+                    <input type="text" id="cidade" name="cidade" class="form-control" placeholder="Cidade" data-obrigatorio-endereco />
+                </div>
+                <div class='col-md-1'>
+                    <div class="form-group">
+                        <label class="control-label">UF:</label>
+                    </div>
+                </div>
+                <div class='col-md-4'>
+                    <div class="form-group">
+                        <label class="control-label">Ponto de Referência:</label>
+                        <input type="text" id="ptreferencia" name="ptreferencia" class="form-control" placeholder="Ponto de Referência" />
+                    </div>
+                </div>
+                <div class='col-md-2'>
+                    <div class="form-group">
+                        <label class="control-label">CEP:</label>
+                        <input type="text" id="cep" name="cep" class="form-control" placeholder="CEP" data-mask="00000-000" />
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row" id="telefone1">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Tipo de Telefone:</label>
+                    </div>
+                </div>
+                <div class='col-md-1'>
+                    <div class="form-group">
+                        <label class="control-label">DDD:</label>
+                        <input type="text" id="dddtelefone" name="dddtelefone[]" class="form-control" placeholder="DDD" data-obrigatorio-telefone data-mask="00" />
+                    </div>
+                </div>
+                <div class='col-md-3'>
+                    <div class="form-group">
+                        <label class="control-label">Nº Telefone</label>
+                        <input type="text" id="numtelefone1" name="numtelefone[]" class="form-control" placeholder="NºTelefone" data-obrigatorio-telefone data-mask="00000-0000" />
+                    </div>
+                </div>
+
+                <div class='col-md-2'>
+                    <div class="form-group">
+                        <label class="control-label">Operadora:</label>
+                        <input type="text" id="operadora1" name="operadora[]" class="form-control" placeholder="Operadora" />
+                    </div>
+                </div>
+                <div class='col-md-4'>
+                    <div class="form-group">
+                        <label class="control-label">Melhor Horário para contato:</label>
+                        <input type="text" id="horariocontato1" name="horariocontato[]" class="form-control" placeholder="Melhor Horário" />
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row" id="telefone2">
+                <div class='col-md-2'>
+                    <div class="form-group">
+                        <label class="control-label">Tipo de Telefone:</label>
+                    </div>
+                </div>
+                <div class='col-md-1'>
+                    <div class="form-group">
+                        <label class="control-label">DDD:</label>
+                        <input type="text" id="dddtelefone2" maxlength="2" name="dddtelefone[]" class="form-control" placeholder="DDD" data-obrigatorio-telefone data-mask="00" />
+                    </div>
+                </div>
+                <div class='col-md-3'>
+                    <div class="form-group">
+                        <label class="control-label">Nº Telefone</label>
+                        <input type="text" id="numtelefone2" maxlength="10" name="numtelefone[]" class="form-control" placeholder="NºTelefone" data-obrigatorio-telefone data-mask="00000-0000" />
+                    </div>
+                </div>
+                <div class='col-md-2'>
+                    <div class="form-group">
+                        <label class="control-label">Operadora:</label>
+                        <input type="text" id="operadora2" name="operadora[]" class="form-control" placeholder="Operadora" />
+                    </div>
+                </div>
+                <div class='col-md-4'>
+                    <div class="form-group">
+                        <label class="control-label">Melhor Horário para contato:</label>
+                        <input type="text" id="horariocontato2" name="horariocontato[]" class="form-control" placeholder="Melhor Horário" />
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-offset-3 col-md-2">
+                    <input type="button" name="btCancelar" id="txCancelar" style="width: 100%;"
+                           class="btn btn-warning" value="Cancelar" onclick="window.history.back();" />
+                </div>
+                <div class="col-md-2">
+                    <input type="reset" name="btLimpar" id="txLimpar" style="width: 100%;"
+                           class="btn btn-info" value="Limpar" />
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" name="btSalvar" id="txGravar" style="width: 100%;"
+                           class="btn btn-success" value="Salvar" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
