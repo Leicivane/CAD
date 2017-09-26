@@ -1,0 +1,37 @@
+﻿@using System.Reflection
+@model IEnumerable<TelefoneVM>
+@if (Model == null)
+{
+    return;
+}
+
+
+@foreach (var telefone in Model)
+{
+    <div class="row" id="telefone1">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label">Tipo de Telefone:</label>
+                @Html.EnumDropDownListFor(s => telefone.TipoTelefone)
+            </div>
+        </div>
+        <div class='col-md-1'>
+            <div class="form-group">
+                <label class="control-label">DDD:</label>
+                <input type="text" name="Telefones.DDD" class="form-control" placeholder="DDD" data-mask="00" />
+            </div>
+        </div>
+        <div class='col-md-3'>
+            <div class="form-group">
+                <label class="control-label">Nº Telefone</label>
+                <input type="text" id="numtelefone1" name="Telefones.DDD" class="form-control" placeholder="NºTelefone" data-mask="00000-0000" />
+            </div>
+        </div>
+        <div class='col-md-4'>
+            <div class="form-group">
+                <label class="control-label">Melhor Horário para contato:</label>
+                <input type="text" id="horariocontato1" name="Telefones.HorarioDeContato" class="form-control" placeholder="Melhor Horário" />
+            </div>
+        </div>
+    </div>
+}

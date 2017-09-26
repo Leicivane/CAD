@@ -10,6 +10,7 @@ namespace CAD
                 .Include("~/Content/bootstrap.css")
                 .Include("~/Content/bootstrap-cad-theme.css")
                 .Include("~/Content/bootstrap-table.min.css")
+                .Include("~/Content/font-awesome.min.css")
                 .Include("~/Content/CAD/cad.css"));
 
             bundles.Add(new ScriptBundle("~/js")

@@ -43,6 +43,7 @@
     <Compile Include="Contexto\CADContext.cs" />
     <Compile Include="Entidades\DocumentoIdentificacao.cs" />
     <Compile Include="Entidades\Endereco.cs" />
+    <Compile Include="Entidades\Enum\TipoSexo.cs" />
     <Compile Include="Entidades\OrdemServico.cs" />
     <Compile Include="Entidades\Pessoa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
