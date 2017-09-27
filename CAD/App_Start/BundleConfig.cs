@@ -21,7 +21,8 @@ namespace CAD
                 .Include("~/Scripts/jquery.validate.unobtrusive.js")
                 .Include("~/Scripts/bootstrap.js")
                 .Include("~/Scripts/bootstrap-table.min.js")
-                .Include("~/Scripts/CAD/global.js"));
+                .Include("~/Scripts/CAD/global.js")
+                .Include("~/Scripts/CAD/dados.js"));
         }
     }
 }

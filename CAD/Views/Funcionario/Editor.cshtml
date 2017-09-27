@@ -104,14 +104,16 @@
                 </div>
             </div>
 
-            { Html.RenderPartial("_Telefones", Model?.Telefones); }
+            <div class="telefones">
+                @{ Html.RenderPartial("_Telefones", Model?.Telefones); }
+            </div>
 
             <div class="row">
                 <div class="col-md-offset-5 col-md-2">
                     <div class="text-center">
                         <div class="telefone-indicator">
                             <div class="telefone-icon">
-                                <span class="fa-stack fa-3x">
+                                <span class="fa-stack fa-3x telefone-clicavel">
                                     <i class="fa fa-circle fa-stack-2x text-primary"></i>
                                     <i class="fa fa-phone fa-stack-1x fa-inverse"></i>
                                 </span>
@@ -137,10 +139,28 @@
                            class="btn btn-success btn-block" value="Salvar" />
                 </div>
             </div>
-        }
+                    }
     </div>
 </div>
 
 @section scripts {
-    <script></script>
+    <script>
+
+
+        $(function () {
+            $(".telefone-clicavel").click(function (evt) {
+                AjaxCAD.Post({
+                    url: "",
+                    success: function (retorno) {
+                        if (retorno.HasErro) {
+                            Eventos.MostrarErroModelState(retorno);
+                            return;
+                        }
+
+                        $(".telefones").append(retorno.Model);
+                    }
+                });
+            });
+        });
+    </script>
 }

@@ -34,5 +34,30 @@ Eventos = {
         });
 
         $(".field-validation-error").closest(".form-group").addClass("has-error").end().addClass("text-danger");
-    }
+    },
+
+    MostrarErroModelState: function (retorno) {
+        var erros = retorno.listaErros;
+        var chaves = retorno.chaves;
+
+        $.each(chaves, function (index, elem) {
+            if ($('[name=' + elem + ']').length === 0) {
+                chaves[index] = elem + 'Id';
+            }
+        });
+
+        var divSummary = $('.validation-summary-valid');
+        divSummary.removeClass('validation-summary-valid');
+        divSummary.addClass('validation-summary-errors');
+
+        var ul = divSummary.find('ul');
+        $.each(erros, function (index, elem) {
+            $(ul).append('<li>' + elem + '</li>');
+        });
+
+        $.each(chaves, function (index, elem) {
+            $('[name=' + elem + ']').closest('.form-group').addClass('has-error');
+        });
+        $('[type=submit]').prop('disabled', false);
+    },
 };

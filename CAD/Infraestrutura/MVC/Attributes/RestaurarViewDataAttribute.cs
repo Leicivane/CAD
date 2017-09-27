@@ -5,8 +5,8 @@ namespace CAD.Infraestrutura.MVC.Attributes
 {
     public class RestaurarViewDataAttribute : ActionFilterAttribute
     {
-        private readonly string ViewDataKey = "ViewData";
-        private readonly string RotaOrigemKey = "RotaOrigem";
+        private const string ViewDataKey = "ViewData";
+        private const string RotaOrigemKey = "RotaOrigem";
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {

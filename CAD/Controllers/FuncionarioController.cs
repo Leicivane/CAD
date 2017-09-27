@@ -1,7 +1,10 @@
 ﻿using CAD.Models;
 using System;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 
 namespace CAD.Controllers
 {
@@ -22,6 +25,11 @@ namespace CAD.Controllers
             return Json(new { HasErro = false, Url = url }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult FailureJson(ModelStateDictionary modelState)
+        {
+            return Json(modelState.ObterErrosModelState());
+        }
+
         internal object RenderRazorViewToString(string viewName, object model)
         {
             ViewData.Model = model;
@@ -36,11 +44,46 @@ namespace CAD.Controllers
         }
 
     }
+
+
+    public static class ModelStateHelper
+    {
+        public static object ObterErrosModelState(this ModelStateDictionary modelState)
+        {
+            var chaves = from modelstate in modelState.AsQueryable().Where(f => f.Value.Errors.Count > 0)
+                         select modelstate.Key;
+            var listaErros = from modelstate in modelState.AsQueryable().Where(f => f.Value.Errors.Count > 0)
+                             select modelstate.Value.Errors.FirstOrDefault(a => !string.IsNullOrEmpty(a.ErrorMessage));
+
+            listaErros = listaErros.Where(e => e != null);
+            var resultado = new { HasErro = listaErros.Any(), chaves = chaves.ToList(), listaErros = listaErros.Select(a => a.ErrorMessage).ToList() };
+
+            return resultado;
+        }
+    }
+
     public class FuncionarioController : BaseController
     {
         [HttpGet]
         public ActionResult Index()
         {
+
+            Assembly asm = Assembly.GetAssembly(typeof(MvcApplication));
+
+            var controlleractionlist = asm.GetTypes()
+                    .Where(type => typeof(Controller).IsAssignableFrom(type))
+                    .SelectMany(type => type.GetMethods(BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Public))
+                    .Where(m => !m.GetCustomAttributes(typeof(System.Runtime.CompilerServices.CompilerGeneratedAttribute), true).Any())
+                    .Select(x => new { Controller = x.DeclaringType.Name, Action = x.Name, ReturnType = x.ReturnType.Name, Attributes = String.Join(",", x.GetCustomAttributes().Select(a => a.GetType().Name.Replace("Attribute", ""))) })
+                    .OrderBy(x => x.Controller).ThenBy(x => x.Action).ToList()
+                    .GroupBy(x => x.Controller).Select(x => new
+                    {
+                        Controller = x.Key,
+                    });
+
+            var stringJSON = JsonConvert.SerializeObject(controlleractionlist, Formatting.Indented);
+
+            System.IO.File.WriteAllText(@"C:\Users\ramos\Desktop\r.json", stringJSON);
             return View();
         }
 

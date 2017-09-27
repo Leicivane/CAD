@@ -1,6 +1,8 @@
-﻿using CAD.Core.Negocio.Exceptions;
+﻿using System.Web.Configuration;
+using CAD.Core.Negocio.Exceptions;
 using CAD.Infraestrutura.Extensions;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace CAD.Infraestrutura.MVC.Attributes
 {
@@ -29,7 +31,8 @@ namespace CAD.Infraestrutura.MVC.Attributes
 
         private void TratarApresentacao(ExceptionContext filterContext)
         {
-            var rotaOrigem = filterContext.HttpContext.Request.UrlReferrer.GetRouteData();
+            var request = filterContext.HttpContext.Request;
+            var rotaOrigem = request.UrlReferrer == null ? GetRotaPadrao() : request.UrlReferrer.GetRouteData();
 
             filterContext.HttpContext.Response.Clear();
 
@@ -37,6 +40,16 @@ namespace CAD.Infraestrutura.MVC.Attributes
             filterContext.Controller.TempData[RotaOrigemKey] = $"{rotaOrigem["controller"]}/{rotaOrigem["action"]}";
 
             filterContext.Result = new RedirectToRouteResult(rotaOrigem);
+        }
+
+        private RouteValueDictionary GetRotaPadrao()
+        {
+            
+            return new RouteValueDictionary(new
+            {
+                controller = "Conta",
+                action = "Login"
+            });
         }
 
         #endregion
