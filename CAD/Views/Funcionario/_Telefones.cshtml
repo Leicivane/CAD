@@ -8,29 +8,37 @@
 
 @foreach (var telefone in Model)
 {
-    <div class="row" id="telefone">
+    <div class="row rowtelefone">
         <div class="col-md-2">
             <div class="form-group">
                 <label class="control-label">Tipo de Telefone:</label>
-                @Html.EnumDropDownListFor(s => telefone.TipoTelefone)
+                @Html.EnumDropDownListFor(s => telefone.TipoTelefone, new {@class = "form-control"})
             </div>
         </div>
         <div class='col-md-1'>
             <div class="form-group">
-                <label class="control-label">DDD:</label>
-                <input type="text" name="Telefones.DDD" class="form-control" placeholder="DDD" data-mask="00" />
+                <label class="control-label">ddd:</label>
+                <input type="text" name="ddd" class="form-control" placeholder="ddd" data-mask="00" />
             </div>
         </div>
         <div class='col-md-3'>
             <div class="form-group">
                 <label class="control-label">Nº Telefone</label>
-                <input type="text" id="numtelefone1" name="Telefones.DDD" class="form-control" placeholder="NºTelefone" data-mask="00000-0000" />
+                <input type="text" name="numero" class="form-control" placeholder="NºTelefone" data-mask="00000-0000" />
             </div>
         </div>
         <div class='col-md-4'>
             <div class="form-group">
                 <label class="control-label">Melhor Horário para contato:</label>
-                <input type="text" id="horariocontato1" name="Telefones.HorarioDeContato" class="form-control" placeholder="Melhor Horário" />
+                <input type="text" id="horariocontato1" name="horarioDeContato" class="form-control" placeholder="Melhor Horário"/>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="text-center telefone-excluir" title="Remover telefone">
+                <span class="fa-stack fa-3x telefone-clicavel">
+                    <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                    <i class="fa fa-times-circle fa-stack-1x fa-inverse"></i>
+                </span>
             </div>
         </div>
     </div>

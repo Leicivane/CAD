@@ -30,9 +30,12 @@ namespace CAD.Models
 
         public ICollection<TelefoneVM> Telefones { get; set; }
 
-        public static object Converter(NovoFuncionarioVM model)
+        public NovoFuncionarioVM()
         {
-            
+        }
+
+        public static object Converter(NovoFuncionarioVM model, IEnumerable<string> horarioDeContato, IEnumerable<string> numero, IEnumerable<string> ddd)
+        {
             throw new NotImplementedException();
         }
     }

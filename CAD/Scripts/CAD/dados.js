@@ -5,9 +5,9 @@
 
 CAD.prototype.Post = function (options) {
 
-    var opcoes = {
+    var opcoes = $.extend(options, {
         method: "POST"
-    };
+    });
     this.Ajax(opcoes);
 }
 

@@ -1,5 +1,6 @@
 ﻿using CAD.Models;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -67,23 +68,6 @@ namespace CAD.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-
-            Assembly asm = Assembly.GetAssembly(typeof(MvcApplication));
-
-            var controlleractionlist = asm.GetTypes()
-                    .Where(type => typeof(Controller).IsAssignableFrom(type))
-                    .SelectMany(type => type.GetMethods(BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Public))
-                    .Where(m => !m.GetCustomAttributes(typeof(System.Runtime.CompilerServices.CompilerGeneratedAttribute), true).Any())
-                    .Select(x => new { Controller = x.DeclaringType.Name, Action = x.Name, ReturnType = x.ReturnType.Name, Attributes = String.Join(",", x.GetCustomAttributes().Select(a => a.GetType().Name.Replace("Attribute", ""))) })
-                    .OrderBy(x => x.Controller).ThenBy(x => x.Action).ToList()
-                    .GroupBy(x => x.Controller).Select(x => new
-                    {
-                        Controller = x.Key,
-                    });
-
-            var stringJSON = JsonConvert.SerializeObject(controlleractionlist, Formatting.Indented);
-
-            System.IO.File.WriteAllText(@"C:\Users\ramos\Desktop\r.json", stringJSON);
             return View();
         }
 
@@ -94,15 +78,15 @@ namespace CAD.Controllers
         }
 
         [HttpPost]
-        public ActionResult Novo(NovoFuncionarioVM model)
+        public ActionResult Novo(NovoFuncionarioVM model, IEnumerable<string> horarioDeContato, IEnumerable<string> numero, IEnumerable<string> ddd)
         {
             if (!ModelState.IsValid) return View();
 
-            var dto = NovoFuncionarioVM.Converter(model);
+            var dto = NovoFuncionarioVM.Converter(model, horarioDeContato, numero, ddd);
             throw new NotImplementedException();
         }
 
-        [HttpGet]
+        [HttpPost]
         public ActionResult TelefoneJson()
         {
             var view = RenderRazorViewToString("_Telefones", new[] { new TelefoneVM() });

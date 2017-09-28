@@ -20,3 +20,8 @@
 .bg-conta a {
     color: white
 }
+
+
+.telefone-clicavel:hover {
+    cursor: pointer;
+}

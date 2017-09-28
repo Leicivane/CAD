@@ -4,6 +4,7 @@
 
 Eventos = {
     ConfigurarValidation: function () {
+        debugger;
         if ($(".validation-summary-errors ul li").is(":visible")) {
             $(".validation-summary-errors").addClass("alert alert-danger");
         }
@@ -37,6 +38,14 @@ Eventos = {
     },
 
     MostrarErroModelState: function (retorno) {
+        if (typeof retorno == "string") {
+            var mensagem = retorno;
+            retorno = {
+                listaErros: [mensagem],
+                chaves: []
+            };
+        }
+
         var erros = retorno.listaErros;
         var chaves = retorno.chaves;
 
@@ -47,6 +56,11 @@ Eventos = {
         });
 
         var divSummary = $('.validation-summary-valid');
+
+        if (divSummary.length == 0) {
+            $(".validation-messages").append("<div class='validation-summary-valid'><ul></ul></div>");
+            divSummary = $('.validation-summary-valid');
+        }
         divSummary.removeClass('validation-summary-valid');
         divSummary.addClass('validation-summary-errors');
 
@@ -59,5 +73,7 @@ Eventos = {
             $('[name=' + elem + ']').closest('.form-group').addClass('has-error');
         });
         $('[type=submit]').prop('disabled', false);
+
+        Eventos.ConfigurarValidation();
     },
 };

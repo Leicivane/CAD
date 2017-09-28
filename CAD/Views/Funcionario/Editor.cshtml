@@ -111,9 +111,9 @@
             <div class="row">
                 <div class="col-md-offset-5 col-md-2">
                     <div class="text-center">
-                        <div class="telefone-indicator">
+                        <div class="telefone-indicator" title="Adicionar telefone">
                             <div class="telefone-icon">
-                                <span class="fa-stack fa-3x telefone-clicavel">
+                                <span class="fa-stack fa-3x telefone-clicavel telefone-add">
                                     <i class="fa fa-circle fa-stack-2x text-primary"></i>
                                     <i class="fa fa-phone fa-stack-1x fa-inverse"></i>
                                 </span>
@@ -148,9 +148,22 @@
 
 
         $(function () {
-            $(".telefone-clicavel").click(function (evt) {
+            $(".telefone-add").click(function (evt) {
+                var linhaTelefone = $(".rowtelefone");
+
+                var vazio = linhaTelefone.find("input").get().some(function (input) {
+                    return $(input).val() == "";
+                });
+
+
+                if (vazio) {
+                    Eventos.MostrarErroModelState("Não é possível adicionar um telefone sem antes preencher todos os campos");
+                    return false;
+                }
+
+
                 AjaxCAD.Post({
-                    url: "",
+                    url: CADUrl.funcionario.telefonejson,
                     success: function (retorno) {
                         if (retorno.HasErro) {
                             Eventos.MostrarErroModelState(retorno);
@@ -160,6 +173,12 @@
                         $(".telefones").append(retorno.Model);
                     }
                 });
+            });
+
+
+            $(document).on("click", ".telefone-excluir", function (evt) {
+                var el = $(evt.currentTarget);
+                el.closest(".rowtelefone").empty();
             });
         });
     </script>
