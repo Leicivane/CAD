@@ -1,10 +1,30 @@
 ﻿$(function () {
     Eventos.ConfigurarValidation();
+    Eventos.IniciarCalendario();
 });
 
 Eventos = {
+    IniciarCalendario : function() {
+        $('.date').datetimepicker({
+            locale: 'pt-BR',
+            format: 'DD/MM/YYYY'
+        });
+    },
+    LimparValidacao: function () {
+        var divSummary = $('.validation-summary-errors');
+        divSummary.removeClass('validation-summary-errors');
+        divSummary.addClass('validation-summary-valid');
+        var li = divSummary.find('ul li');
+        li.remove();
+
+
+        $(".validation-summary-errors").removeClass("alert alert-danger");
+        $(".validation-summary-valid").removeClass("alert alert-danger");
+
+
+        $('.has-error').removeClass('has-error');
+    },
     ConfigurarValidation: function () {
-        debugger;
         if ($(".validation-summary-errors ul li").is(":visible")) {
             $(".validation-summary-errors").addClass("alert alert-danger");
         }

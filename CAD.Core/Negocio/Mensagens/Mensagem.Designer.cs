@@ -158,5 +158,14 @@ namespace CAD.Core.Negocio.Mensagens {
                 return ResourceManager.GetString("M017", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alteração efetuada com sucesso!.
+        /// </summary>
+        public static string MN005 {
+            get {
+                return ResourceManager.GetString("MN005", resourceCulture);
+            }
+        }
     }
 }

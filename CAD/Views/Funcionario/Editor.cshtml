@@ -31,43 +31,53 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        @Html.LabelFor(s => s.CPF, new { @class = "control-label" })
-                        @Html.TextBoxFor(s => s.CPF, new { @class = "form-control", placeholder = "CPF", data_mask = "000.000.000-00" })
-                        @Html.ValidationMessageFor(s => s.CPF)
+                        @Html.LabelFor(s => s.CPF, new {@class = "control-label"})
+                        @Html.TextBoxFor(s => s.CPF, new {@class = "form-control", placeholder = "CPF", data_mask = "000.000.000-00"})
                     </div>
+                    @Html.ValidationMessageFor(s => s.CPF)
                 </div>
                 <div class="col-md-3">
-                    @Html.LabelFor(s => s.RG, new { @class = "control-label" })
-                    @Html.TextBoxFor(s => s.RG, new { @class = "form-control", placeholder = "CPF", data_mask = "0.000.000" })
+                    <div class="form-group">
+                        @Html.LabelFor(s => s.RG, new { @class = "control-label" })
+                        @Html.TextBoxFor(s => s.RG, new { @class = "form-control", placeholder = "CPF", data_mask = "0.000.000" })
+                    </div>
                     @Html.ValidationMessageFor(s => s.RG)
                 </div>
             </div>
             <br />
             <div class="row">
-                <div class="col-md-2">
+                <div class='col-md-2'>
                     <div class="form-group">
                         @Html.LabelFor(s => s.DataNascimento, new { @class = "control-label" })
-                        <div class="input-group">
-                            <input type="text" class="form-control">
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <div class='input-group date'>
+                            @Html.TextBoxFor(s => s.DataNascimento, new {@class = "form-control"})
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
                         </div>
+                        @Html.ValidationMessageFor(s => s.DataNascimento)
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Sexo, new { @class = "control-label" })
-                        @Html.EnumDropDownListFor(s => s.Sexo, new { @class = "form-control" })
+                        @Html.LabelFor(m => m.Sexo, new {@class = "control-label"})
+                        @Html.EnumDropDownListFor(s => s.Sexo, new {@class = "form-control"})
                     </div>
+                    @Html.ValidationMessageFor(s => s.Sexo)
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Email, new { @class = "control-label" })
                         @Html.TextBoxFor(s => s.Email, new { @class = "form-control", placeholder = "Emai" })
+                        @Html.ValidationMessageFor(s => s.Email)
                     </div>
                 </div>
                 <div class="col-md-3">
-                    @Html.LabelFor(m => m.Logradouro, new { @class = "control-label" })
-                    @Html.TextBoxFor(s => s.Logradouro, new { @class = "form-control", placeholder = "Logradouro" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Logradouro, new { @class = "control-label" })
+                        @Html.TextBoxFor(s => s.Logradouro, new { @class = "form-control", placeholder = "Logradouro" })
+                    </div>
+                   @Html.ValidationMessageFor(s => s.Logradouro)
                 </div>
             </div>
             <br />
@@ -76,69 +86,90 @@
                     <div class="form-group">
                         @Html.LabelFor(m => m.Bairro, new { @class = "control-label" })
                         @Html.TextBoxFor(s => s.Bairro, new { @class = "form-control", placeholder = "Bairro" })
+                        @Html.ValidationMessageFor(s => s.Bairro)
                     </div>
                 </div>
                 <div class='col-md-2'>
                     <div class="form-group">
                         @Html.LabelFor(m => m.Cidade, new { @class = "control-label" })
                         @Html.TextBoxFor(s => s.Cidade, new { @class = "form-control", placeholder = "Cidade" })
+                        @Html.ValidationMessageFor(s => s.Cidade)
+
                     </div>
                 </div>
                 <div class='col-md-1'>
                     <div class="form-group">
                         @Html.LabelFor(m => m.UF, new { @class = "control-label" })
                         @Html.TextBoxFor(s => s.UF, new { @class = "form-control", placeholder = "UF" })
+                        @Html.ValidationMessageFor(s => s.UF)
+
                     </div>
                 </div>
                 <div class='col-md-4'>
                     <div class="form-group">
                         @Html.LabelFor(m => m.PontoReferencia, new { @class = "control-label" })
                         @Html.TextBoxFor(s => s.PontoReferencia, new { @class = "form-control", placeholder = "Ponto de Referência" })
+                        @Html.ValidationMessageFor(s => s.PontoReferencia)
+
                     </div>
                 </div>
                 <div class='col-md-2'>
                     <div class="form-group">
                         @Html.LabelFor(m => m.CEP, new { @class = "control-label" })
                         @Html.TextBoxFor(s => s.CEP, new { @class = "form-control", data_mask = "00000-000" })
+                        @Html.ValidationMessageFor(s => s.CEP)
+
                     </div>
                 </div>
             </div>
+            <br />
+            <div class="row" style="margin-bottom: 1em;">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.LabelFor(s => s.IsInativo, new { @class = "control-label" })
+                        @Html.TextBoxFor(s => s.IsInativo, new { @class = "form-control" })
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(s => s.IsInativo)
+            </div>
+
+
 
             <div class="telefones">
                 @{ Html.RenderPartial("_Telefones", Model?.Telefones); }
             </div>
 
-            <div class="row">
-                <div class="col-md-offset-5 col-md-2">
-                    <div class="text-center">
-                        <div class="telefone-indicator" title="Adicionar telefone">
-                            <div class="telefone-icon">
-                                <span class="fa-stack fa-3x telefone-clicavel telefone-add">
-                                    <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                                    <i class="fa fa-phone fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </div>
-                            <div class="telefone-text">
-                                <i>Novo telefone</i>
+                <div class="row">
+                    <div class="col-md-offset-5 col-md-2">
+                        <div class="text-center">
+                            <div class="telefone-indicator" title="Adicionar telefone">
+                                <div class="telefone-icon">
+                                    <span class="fa-stack fa-3x telefone-clicavel telefone-add">
+                                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                                        <i class="fa fa-phone fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </div>
+                                <div class="telefone-text">
+                                    <i>Novo telefone</i>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <br />
-            <div class="row">
-                <div class="col-md-offset-3 col-md-2">
-                    @Html.ActionLink("Cancelar", "Index", "Funcionario", new { @class = "btn btn-warning btn-block" })
+                <br />
+                <div class="row">
+                    <div class="col-md-offset-3 col-md-2">
+                        @Html.ActionLink("Cancelar", "Index", "Funcionario", new { @class = "btn btn-warning btn-block" })
+                    </div>
+                    <div class="col-md-2">
+                        <input type="reset" name="btLimpar" id="txLimpar"
+                               class="btn btn-info btn-block" value="Limpar" />
+                    </div>
+                    <div class="col-md-2">
+                        <input type="submit" name="btSalvar" id="txGravar"
+                               class="btn btn-success btn-block" value="Salvar" />
+                    </div>
                 </div>
-                <div class="col-md-2">
-                    <input type="reset" name="btLimpar" id="txLimpar"
-                           class="btn btn-info btn-block" value="Limpar" />
-                </div>
-                <div class="col-md-2">
-                    <input type="submit" name="btSalvar" id="txGravar"
-                           class="btn btn-success btn-block" value="Salvar" />
-                </div>
-            </div>
                     }
     </div>
 </div>
@@ -148,6 +179,7 @@
 
 
         $(function () {
+            atualizarTelefone();
             $(".telefone-add").click(function (evt) {
                 var linhaTelefone = $(".rowtelefone");
 
@@ -157,6 +189,7 @@
 
 
                 if (vazio) {
+                    Eventos.LimparValidacao();
                     Eventos.MostrarErroModelState("Não é possível adicionar um telefone sem antes preencher todos os campos");
                     return false;
                 }
@@ -171,15 +204,23 @@
                         }
 
                         $(".telefones").append(retorno.Model);
+                        atualizarTelefone();
                     }
                 });
             });
 
 
             $(document).on("click", ".telefone-excluir", function (evt) {
+                Eventos.LimparValidacao();
                 var el = $(evt.currentTarget);
                 el.closest(".rowtelefone").empty();
             });
         });
+
+
+        var atualizarTelefone = function () {
+
+            $("[name='telefone.TipoTelefone']").attr("name", "tipoTelefone");
+        }
     </script>
 }

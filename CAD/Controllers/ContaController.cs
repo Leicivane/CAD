@@ -11,12 +11,12 @@ using System.Web.Security;
 
 namespace CAD.Controllers
 {
-    public class ContaController : Controller
+    [AllowAnonymous]
+    public class ContaController : BaseController
     {
         private readonly IConfigurationReader _configurationReader;
         private readonly IUsuarioServico _usuarioServico;
         private readonly ITempDataServico _tempDataServico;
-        private const string MensagemKey = "Mensagem";
         private const string ReturnUrlKey = "ReturnUrl";
 
         public ContaController()
@@ -47,7 +47,7 @@ namespace CAD.Controllers
             return Redirect(string.IsNullOrEmpty(returnUrl) ? _configurationReader.GetAppSetting(ReturnUrlKey) : returnUrl);
         }
 
-        [HttpGet, Authorize]
+        [HttpGet]
         public ActionResult AreaAutorizada()
         {
             return View();

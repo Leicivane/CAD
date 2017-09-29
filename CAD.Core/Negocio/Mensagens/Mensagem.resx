@@ -150,4 +150,7 @@
   <data name="M017" xml:space="preserve">
     <value>A quantidade máxima de caracteres para senha é de 15</value>
   </data>
+  <data name="MN005" xml:space="preserve">
+    <value>Alteração efetuada com sucesso!</value>
+  </data>
 </root>

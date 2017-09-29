@@ -3,38 +3,57 @@ using System.Collections.Generic;
 using CAD.Core.Negocio.Mensagens;
 using System.ComponentModel.DataAnnotations;
 using CAD.Core.Negocio.Enums;
+using CAD.Infraestrutura.MVC.Attributes;
 
 namespace CAD.Models
 {
     public class NovoFuncionarioVM
     {
-        public string UF;
-        public string CEP;
-
+        [Required(ErrorMessageResourceName = "M003", ErrorMessageResourceType = typeof(Mensagem), AllowEmptyStrings = false)]
+        public string UF { get; set; }
+        [Required(ErrorMessageResourceName = "M003", ErrorMessageResourceType = typeof(Mensagem), AllowEmptyStrings = false)]
+        public string CEP { get; set; }
         [Display(Name = "Nome")]
         [Required(ErrorMessageResourceName = "M003", ErrorMessageResourceType = typeof(Mensagem), AllowEmptyStrings = false)]
         public string Nome { get; set; }
         [Display(Name = "Sobrenome")]
         [Required(ErrorMessageResourceName = "M003", ErrorMessageResourceType = typeof(Mensagem), AllowEmptyStrings = false)]
         public string Sobrenome { get; set; }
-
+        [Required(ErrorMessageResourceName = "M003", ErrorMessageResourceType = typeof(Mensagem), AllowEmptyStrings = false)]
         public string RG { get; set; }
+        [CPF(ErrorMessageResourceName = "M011", ErrorMessageResourceType = typeof(Mensagem))]
+        [Required(ErrorMessageResourceName = "M003", ErrorMessageResourceType = typeof(Mensagem), AllowEmptyStrings = false)]
         public string CPF { get; set; }
+        [Required(ErrorMessageResourceName = "M003", ErrorMessageResourceType = typeof(Mensagem), AllowEmptyStrings = false)]
+        [Display(Name = "Sexo")]
         public TipoSexo Sexo { get; set; }
+        [Required(ErrorMessageResourceName = "M003", ErrorMessageResourceType = typeof(Mensagem), AllowEmptyStrings = false)]
+        [Display(Name = "Email")]
         public string Email { get; set; }
+        [Required(ErrorMessageResourceName = "M003", ErrorMessageResourceType = typeof(Mensagem), AllowEmptyStrings = false)]
+        [Display(Name = "Logradouro")]
         public string Logradouro { get; set; }
+        [Required(ErrorMessageResourceName = "M003", ErrorMessageResourceType = typeof(Mensagem), AllowEmptyStrings = false)]
         public string Cidade { get; set; }
+        [Required(ErrorMessageResourceName = "M003", ErrorMessageResourceType = typeof(Mensagem), AllowEmptyStrings = false)]
         public string Bairro { get; set; }
+        [Display(Name = "Ponto de Referência")]
+        [Required(ErrorMessageResourceName = "M003", ErrorMessageResourceType = typeof(Mensagem), AllowEmptyStrings = false)]
         public string PontoReferencia { get; set; }
+        [Display(Name = "Data de Nascimento")]
+        [Required(ErrorMessageResourceName = "M003", ErrorMessageResourceType = typeof(Mensagem), AllowEmptyStrings = false)]
         public DateTime DataNascimento { get; set; }
 
         public ICollection<TelefoneVM> Telefones { get; set; }
+        [Display(Name = "Está Inativo")]
+        public bool? IsInativo { get; set; }
 
         public NovoFuncionarioVM()
         {
+            Telefones = new List<TelefoneVM>();
         }
 
-        public static object Converter(NovoFuncionarioVM model, IEnumerable<string> horarioDeContato, IEnumerable<string> numero, IEnumerable<string> ddd)
+        public static object Converter(NovoFuncionarioVM model)
         {
             throw new NotImplementedException();
         }

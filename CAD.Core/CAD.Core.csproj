@@ -55,6 +55,7 @@
     </Compile>
     <Compile Include="Negocio\DTO\DestinatarioMensagemDTO.cs" />
     <Compile Include="Negocio\Servicos\EmailServico.cs" />
+    <Compile Include="Negocio\Servicos\FuncionarioServico.cs" />
     <Compile Include="Negocio\Servicos\Interface\IUsuarioServico.cs" />
     <Compile Include="Negocio\DTO\MensagemAlteracaoSenhaDTO.cs" />
     <Compile Include="Negocio\DTO\RemetenteMensagemDTO.cs" />

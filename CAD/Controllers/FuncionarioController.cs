@@ -1,70 +1,28 @@
 ﻿using CAD.Models;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
+using CAD.Core.Negocio.Mensagens;
+using CAD.Core.Negocio.Servicos;
+using CAD.Infraestrutura.MVC.Servicos;
 using Newtonsoft.Json;
 
 namespace CAD.Controllers
 {
-    public class BaseController : Controller
-    {
-        public JsonResult SucessJson(string mensagemAlerta)
-        {
-            return Json(new { HasErro = false, Mensagem = mensagemAlerta }, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult SucessJson(object model, string mensagemAlerta = "")
-        {
-            return Json(new { HasErro = false, Model = model, Mensagem = mensagemAlerta }, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult RedirectJson(string url)
-        {
-            return Json(new { HasErro = false, Url = url }, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult FailureJson(ModelStateDictionary modelState)
-        {
-            return Json(modelState.ObterErrosModelState());
-        }
-
-        internal object RenderRazorViewToString(string viewName, object model)
-        {
-            ViewData.Model = model;
-            using (var sw = new StringWriter())
-            {
-                var viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
-                var viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
-                viewResult.View.Render(viewContext, sw);
-                viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
-                return sw.GetStringBuilder().ToString();
-            }
-        }
-
-    }
-
-
-    public static class ModelStateHelper
-    {
-        public static object ObterErrosModelState(this ModelStateDictionary modelState)
-        {
-            var chaves = from modelstate in modelState.AsQueryable().Where(f => f.Value.Errors.Count > 0)
-                         select modelstate.Key;
-            var listaErros = from modelstate in modelState.AsQueryable().Where(f => f.Value.Errors.Count > 0)
-                             select modelstate.Value.Errors.FirstOrDefault(a => !string.IsNullOrEmpty(a.ErrorMessage));
-
-            listaErros = listaErros.Where(e => e != null);
-            var resultado = new { HasErro = listaErros.Any(), chaves = chaves.ToList(), listaErros = listaErros.Select(a => a.ErrorMessage).ToList() };
-
-            return resultado;
-        }
-    }
-
     public class FuncionarioController : BaseController
     {
+        private readonly FuncionarioServico _funcionarioServico;
+        private readonly TempDataServico _tempDataServico;
+
+        public FuncionarioController()
+        {
+            _funcionarioServico = new FuncionarioServico();
+            _tempDataServico = new TempDataServico(TempData);
+
+
+        }
         [HttpGet]
         public ActionResult Index()
         {
@@ -74,16 +32,40 @@ namespace CAD.Controllers
         [HttpGet]
         public ActionResult Novo()
         {
+            ViewBag.Mensagem = _tempDataServico.Buscar(MensagemKey);
+
             return View("Editor");
         }
 
         [HttpPost]
-        public ActionResult Novo(NovoFuncionarioVM model, IEnumerable<string> horarioDeContato, IEnumerable<string> numero, IEnumerable<string> ddd)
+        public ActionResult Novo(NovoFuncionarioVM model, IEnumerable<DateTime> horarioDeContato, IEnumerable<string> numero, IEnumerable<string> ddd, IEnumerable<TipoTelefone> tipoTelefone)
         {
-            if (!ModelState.IsValid) return View();
+            GerarModelTelefone(model, horarioDeContato, numero, ddd, tipoTelefone);
+            if (!ModelState.IsValid)
+            {
+                return View("Editor", model);
+            }
 
-            var dto = NovoFuncionarioVM.Converter(model, horarioDeContato, numero, ddd);
-            throw new NotImplementedException();
+            var dto = NovoFuncionarioVM.Converter(model);
+            _funcionarioServico.RegistrarFuncionario(dto);
+
+
+            _tempDataServico.Adicionar(MensagemKey, Mensagem.MN005);
+            return RedirectToAction("Novo");
+        }
+
+        private void GerarModelTelefone(NovoFuncionarioVM model, IEnumerable<DateTime> horarioDeContato, IEnumerable<string> numero, IEnumerable<string> ddd, IEnumerable<TipoTelefone> tipoTelefone)
+        {
+            for (int i = 0; i < horarioDeContato.Count(); i++)
+            {
+                model.Telefones.Add(new TelefoneVM
+                {
+                    TipoTelefone = tipoTelefone.ToList()[i],
+                    DDD = ddd.ToList()[i],
+                    HorarioDeContato = horarioDeContato.ToList()[i],
+                    Numero = numero.ToList()[i]
+                });
+            }
         }
 
         [HttpPost]
