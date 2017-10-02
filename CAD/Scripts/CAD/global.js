@@ -4,7 +4,7 @@
 });
 
 Eventos = {
-    IniciarCalendario : function() {
+    IniciarCalendario: function () {
         $('.date').datetimepicker({
             locale: 'pt-BR',
             format: 'DD/MM/YYYY'
@@ -96,4 +96,27 @@ Eventos = {
 
         Eventos.ConfigurarValidation();
     },
+
+    CriarDropDown(seletor, lista, parametroValor, parametroName, isChosenSelect) {
+
+        var dropDown = $(seletor);
+        dropDown.children().remove();
+
+        var optionSelecione = $("<option></option>", { value: "" });
+        optionSelecione.append("Selecione");
+
+        dropDown.append(optionSelecione);
+
+        for (var index = 0; index < lista.length; index++) {
+            var option = $("<option></option>", { value: lista[index][parametroValor] });
+
+            option.append(lista[index][parametroName]);
+            dropDown.append(option);
+        }
+
+        if (isChosenSelect) {
+            dropDown.trigger('chosen:updated');
+        }
+    }
+
 };

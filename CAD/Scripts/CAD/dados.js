@@ -12,11 +12,17 @@ CAD.prototype.Post = function (options) {
 }
 
 
+CAD.prototype.PostFormEncoded = function(options) {
+    options.dataType = 
+    this.Ajax(options);
+}
+
 CAD.prototype.Ajax = function (options) {
 
     var defaultOptions = {
         header: { 'X-Requested-With': 'XMLHttpRequest' },
         cache: false,
+        contentType: "application/json",
         dataType: "json",
         error: function () {
             var retorno = {

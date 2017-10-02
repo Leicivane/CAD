@@ -1,5 +1,6 @@
 ﻿using CAD.Core.Negocio.DTO;
 using CAD.Core.Negocio.Exceptions;
+using CAD.Core.Util.Guard;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace CAD.Core.Negocio.Servicos
             _cacheServico = new CacheServico();
         }
 
-        public ICollection<UFDTO> ListarEstados()
+        public ICollection<UFDTO> ListarEstadosDoBrasil()
         {
             var estadosDoBrasil = _cacheServico.ObterOuAtribuir(EstadosDoBrasil, ListarEstadosBrasilGeoName);
 
@@ -32,16 +33,8 @@ namespace CAD.Core.Negocio.Servicos
         {
             try
             {
-                byte[] dataEstados;
+                var dataEstados = ObterGeonameDataBrasil();
                 var resultado = new List<UFDTO>();
-
-                using (var webClient = new WebClient())
-                {
-                    var url = string.Format("http://www.geonames.org/childrenJSON?geonameId={0}",
-                        _geoNameIdBrasil);
-                    dataEstados = webClient.DownloadData(url);
-                }
-
                 if (dataEstados == null) return resultado;
 
                 var stringEstados = Encoding.UTF8.GetString(dataEstados);
@@ -60,6 +53,81 @@ namespace CAD.Core.Negocio.Servicos
             {
                 throw new NegocioException("Erro ao listar os estados no WebService");
             }
+        }
+
+        public ICollection<CidadeDTO> ListarCidadesDoEstado(string estadoId)
+        {
+            Guard.IsNotNull(estadoId, "estadoId");
+            var cidadesDoEstado = string.Format("CidadesDoEstado_{0}", estadoId);
+            var cidades = _cacheServico.ObterOuAtribuir(cidadesDoEstado, () => ListarCidadesEstadoGeoName(estadoId));
+
+            return cidades;
+        }
+
+        private ICollection<CidadeDTO> ListarCidadesEstadoGeoName(string estadoId)
+        {
+            try
+            {
+                var resultado = new List<CidadeDTO>();
+                var dataCidades = ObterGeonameData(estadoId);
+                if (dataCidades == null) return resultado;
+
+                var stringCidades = Encoding.UTF8.GetString(dataCidades);
+                var geoNameCidades = JsonConvert.DeserializeObject<GeonameResultDTO>(stringCidades);
+
+
+                foreach (var estadoGeoName in geoNameCidades.geonames)
+                {
+                    var tmp = CidadeDTO.Converter(estadoGeoName);
+
+                    resultado.Add(tmp);
+                }
+
+                return resultado;
+
+            }
+            catch (Exception)
+            {
+                throw new NegocioException(string.Format("Erro ao listar as cidades do estado {0}", estadoId));
+            }
+        }
+
+        private byte[] ObterGeonameDataBrasil()
+        {
+            return ObterGeonameData(_geoNameIdBrasil);
+        }
+
+        private byte[] ObterGeonameData(string geoNameId)
+        {
+            byte[] dataEstados;
+
+            using (var webClient = new WebClient())
+            {
+                var url = string.Format("http://www.geonames.org/childrenJSON?geonameId={0}",
+                    geoNameId);
+                dataEstados = webClient.DownloadData(url);
+            }
+            return dataEstados;
+        }
+    }
+
+    public class CidadeDTO
+    {
+        public string Nome { get; set; }
+
+        public int Id { get; set; }
+
+        public static CidadeDTO Converter(GeonameLocalizacaoDTO estadoGeoName)
+        {
+            Guard.IsNotNull(estadoGeoName, "estadoGeoName");
+
+            var resultado = new CidadeDTO
+            {
+                Nome = estadoGeoName.Name,
+                Id = estadoGeoName.GeonameId
+            };
+
+            return resultado;
         }
     }
 }

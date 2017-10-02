@@ -32,8 +32,8 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        @Html.LabelFor(s => s.CPF, new {@class = "control-label"})
-                        @Html.TextBoxFor(s => s.CPF, new {@class = "form-control", placeholder = "CPF", data_mask = "000.000.000-00"})
+                        @Html.LabelFor(s => s.CPF, new { @class = "control-label" })
+                        @Html.TextBoxFor(s => s.CPF, new { @class = "form-control", placeholder = "CPF", data_mask = "000.000.000-00" })
                     </div>
                     @Html.ValidationMessageFor(s => s.CPF)
                 </div>
@@ -51,7 +51,7 @@
                     <div class="form-group">
                         @Html.LabelFor(s => s.DataNascimento, new { @class = "control-label" })
                         <div class='input-group date'>
-                            @Html.TextBoxFor(s => s.DataNascimento, new {@class = "form-control"})
+                            @Html.TextBoxFor(s => s.DataNascimento, new { @class = "form-control" })
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -61,8 +61,8 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Sexo, new {@class = "control-label"})
-                        @Html.EnumDropDownListFor(s => s.Sexo, "Selecione",new {@class = "form-control"})
+                        @Html.LabelFor(m => m.Sexo, new { @class = "control-label" })
+                        @Html.EnumDropDownListFor(s => s.Sexo, "Selecione", new { @class = "form-control" })
                     </div>
                     @Html.ValidationMessageFor(s => s.Sexo)
                 </div>
@@ -78,22 +78,32 @@
                         @Html.LabelFor(m => m.Logradouro, new { @class = "control-label" })
                         @Html.TextBoxFor(s => s.Logradouro, new { @class = "form-control", placeholder = "Logradouro" })
                     </div>
-                   @Html.ValidationMessageFor(s => s.Logradouro)
+                    @Html.ValidationMessageFor(s => s.Logradouro)
                 </div>
             </div>
             <br />
             <div class="row">
-                <div class='col-md-4'>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.UF, new { @class = "control-label" })
-                        @Html.DropdownUfFor(s => s.UF, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(s => s.UF)
-                    </div>
-                </div>
                 <div class='col-md-2'>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Cidade, new {@class = "control-label"})
-                        @Html.TextBoxFor(s => s.Cidade, new {@class = "form-control", placeholder = "Cidade"})
+                        @Html.LabelFor(m => m.CEP, new { @class = "control-label" })
+                        @Html.TextBoxFor(s => s.CEP, new { @class = "form-control", data_mask = "00000-000" })
+                        @Html.ValidationMessageFor(s => s.CEP)
+
+                    </div>
+                </div>
+                <div class='col-md-4'>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.UFId, new { @class = "control-label" })
+                        @Html.DropdownUfFor(s => s.UFId, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(s => s.UFId)
+                    </div>
+                </div>
+                <div class='col-md-3'>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Cidade, new { @class = "control-label" })
+                        <select class="form-control" name="Cidade" id="Cidade">
+                            <option>Selecione</option>
+                        </select>
                         @Html.ValidationMessageFor(s => s.Cidade)
 
                     </div>
@@ -105,69 +115,65 @@
                         @Html.ValidationMessageFor(s => s.Bairro)
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class='col-md-3'>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.PontoReferencia, new {@class = "control-label"})
-                        @Html.TextBoxFor(s => s.PontoReferencia, new {@class = "form-control", placeholder = "Ponto de Referência"})
+                        @Html.LabelFor(m => m.PontoReferencia, new { @class = "control-label" })
+                        @Html.TextBoxFor(s => s.PontoReferencia, new { @class = "form-control", placeholder = "Ponto de Referência" })
                         @Html.ValidationMessageFor(s => s.PontoReferencia)
-
                     </div>
                 </div>
-                <div class='col-md-2'>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.CEP, new {@class = "control-label"})
-                        @Html.TextBoxFor(s => s.CEP, new {@class = "form-control", data_mask = "00000-000"})
-                        @Html.ValidationMessageFor(s => s.CEP)
-
-                    </div>
-                </div>
-                <div class="row" style="margin-bottom: 1em;">
+                <div class="col-md-3">
                     <div class="form-group">
                         <div class="col-md-3">
-                            @Html.LabelFor(s => s.IsInativo, new {@class = "control-label"})
+                            @Html.LabelFor(s => s.IsInativo, new { @class = "control-label" })
                             <br />
                             @Html.CheckBoxFor(s => s.IsInativo)
+                            @Html.ValidationMessageFor(s => s.IsInativo)
                         </div>
                     </div>
-                    @Html.ValidationMessageFor(s => s.IsInativo)
                 </div>
             </div>
-         
+            <div class="row" style="margin-bottom: 1em;">
+
+            </div>
+
             <div class="telefones">
                 @{ Html.RenderPartial("_Telefones", Model?.Telefones); }
             </div>
 
-                <div class="row">
-                    <div class="col-md-offset-5 col-md-2">
-                        <div class="text-center">
-                            <div class="telefone-indicator" title="Adicionar telefone">
-                                <div class="telefone-icon">
-                                    <span class="fa-stack fa-3x telefone-clicavel telefone-add">
-                                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                                        <i class="fa fa-phone fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </div>
-                                <div class="telefone-text">
-                                    <i>Novo telefone</i>
-                                </div>
+            <div class="row">
+                <div class="col-md-offset-5 col-md-2">
+                    <div class="text-center">
+                        <div class="telefone-indicator" title="Adicionar telefone">
+                            <div class="telefone-icon">
+                                <span class="fa-stack fa-3x telefone-clicavel telefone-add">
+                                    <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                                    <i class="fa fa-phone fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </div>
+                            <div class="telefone-text">
+                                <i>Novo telefone</i>
                             </div>
                         </div>
                     </div>
                 </div>
-                <br />
-                <div class="row">
-                    <div class="col-md-offset-3 col-md-2">
-                        @Html.ActionLink("Cancelar", "Index", "Funcionario", null, new { @class = "btn btn-warning btn-block" })
-                    </div>
-                    <div class="col-md-2">
-                        <input type="reset" name="btLimpar" id="txLimpar"
-                               class="btn btn-info btn-block" value="Limpar" />
-                    </div>
-                    <div class="col-md-2">
-                        <input type="submit" name="btSalvar" id="txGravar"
-                               class="btn btn-success btn-block" value="Salvar" />
-                    </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-offset-3 col-md-2">
+                    @Html.ActionLink("Cancelar", "Index", "Funcionario", null, new { @class = "btn btn-warning btn-block" })
                 </div>
+                <div class="col-md-2">
+                    <input type="reset" name="btLimpar" id="txLimpar"
+                           class="btn btn-info btn-block" value="Limpar" />
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" name="btSalvar" id="txGravar"
+                           class="btn btn-success btn-block" value="Salvar" />
+                </div>
+            </div>
                     }
     </div>
 </div>
@@ -217,8 +223,26 @@
 
 
         var atualizarTelefone = function () {
-
             $("[name='telefone.TipoTelefone']").attr("name", "tipoTelefone");
         }
+
+
+        $("#UFId").change(function (evt) {
+            var el = $(evt.currentTarget);
+            AjaxCAD.Post({
+                data: { ufId: el.val() },
+                url: CADUrl.funcionario.listarcidades,
+                success: function (retorno) {
+                    Eventos.LimparValidacao();
+                    if (retorno.HasErro) {
+                        Eventos.MostrarErroModelState(retorno);
+                        return;
+                    }
+
+
+                    Eventos.CriarDropDown("#Cidade", retorno.Model, "Id", "Nome", false);
+                }
+            });
+        });
     </script>
 }

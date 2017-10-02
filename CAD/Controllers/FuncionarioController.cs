@@ -1,13 +1,11 @@
-﻿using CAD.Models;
+﻿using CAD.Core.Negocio.Mensagens;
+using CAD.Core.Negocio.Servicos;
+using CAD.Infraestrutura.MVC.Servicos;
+using CAD.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Web.Mvc;
-using CAD.Core.Negocio.Mensagens;
-using CAD.Core.Negocio.Servicos;
-using CAD.Infraestrutura.MVC.Servicos;
-using Newtonsoft.Json;
 
 namespace CAD.Controllers
 {
@@ -15,14 +13,15 @@ namespace CAD.Controllers
     {
         private readonly FuncionarioServico _funcionarioServico;
         private readonly TempDataServico _tempDataServico;
+        private readonly EstadoServico _estadoServico;
 
         public FuncionarioController()
         {
             _funcionarioServico = new FuncionarioServico();
             _tempDataServico = new TempDataServico(TempData);
-
-
+            _estadoServico = new EstadoServico();
         }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -73,6 +72,14 @@ namespace CAD.Controllers
         {
             var view = RenderRazorViewToString("_Telefones", new[] { new TelefoneVM() });
             return SucessJson(view);
+        }
+
+        [HttpPost]
+        public ActionResult ListarCidades(string ufId)
+        {
+            var cidades = _estadoServico.ListarCidadesDoEstado(ufId);
+
+            return SucessJson(cidades);
         }
     }
 }

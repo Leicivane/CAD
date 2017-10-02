@@ -9,8 +9,9 @@ namespace CAD.Models
 {
     public class NovoFuncionarioVM
     {
+        [Display(Name = "UF")]
         [Required(ErrorMessageResourceName = "M003", ErrorMessageResourceType = typeof(Mensagem), AllowEmptyStrings = false)]
-        public string UF { get; set; }
+        public int UFId { get; set; }
         [Required(ErrorMessageResourceName = "M003", ErrorMessageResourceType = typeof(Mensagem), AllowEmptyStrings = false)]
         public string CEP { get; set; }
         [Display(Name = "Nome")]
