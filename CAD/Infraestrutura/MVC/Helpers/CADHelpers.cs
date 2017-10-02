@@ -1,20 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CAD.Core.Negocio.Servicos;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 
-namespace CAD.Infraestrutura.MVC
+namespace CAD.Infraestrutura.MVC.Helpers
 {
     public static class CADHelpers
     {
+        static CADHelpers()
+        {
+            EstadosServico = new EstadoServico();
+        }
+
+        public static EstadoServico EstadosServico { get; set; }
 
         public static MvcHtmlString DropdownUfFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
         {
-            return new MvcHtmlString(string.Empty);
+            var ufs = EstadosServico.ListarEstados();
+            if (ufs == null) return MvcHtmlString.Empty;
+
+            var selectListItens = ufs.Select(u => new SelectListItem
+            {
+                Text = u.Nome,
+                Value = u.Id.ToString()
+            });
+
+            return htmlHelper.DropDownListFor(expression, selectListItens, "Selecione", htmlAttributes);
         }
 
 

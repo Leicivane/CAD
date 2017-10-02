@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CAD.Core.Negocio.Enums;
 using CAD.Core.Negocio.Mensagens;
-using System.ComponentModel.DataAnnotations;
-using CAD.Core.Negocio.Enums;
 using CAD.Infraestrutura.MVC.Attributes;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CAD.Models
 {
@@ -26,7 +26,7 @@ namespace CAD.Models
         public string CPF { get; set; }
         [Required(ErrorMessageResourceName = "M003", ErrorMessageResourceType = typeof(Mensagem), AllowEmptyStrings = false)]
         [Display(Name = "Sexo")]
-        public TipoSexo Sexo { get; set; }
+        public TipoSexo? Sexo { get; set; }
         [Required(ErrorMessageResourceName = "M003", ErrorMessageResourceType = typeof(Mensagem), AllowEmptyStrings = false)]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -46,7 +46,7 @@ namespace CAD.Models
 
         public ICollection<TelefoneVM> Telefones { get; set; }
         [Display(Name = "Está Inativo")]
-        public bool? IsInativo { get; set; }
+        public bool IsInativo { get; set; }
 
         public NovoFuncionarioVM()
         {

@@ -4,7 +4,6 @@ namespace CAD.Core.Negocio.DTO
     {
         public string Email { get; set; }
         public string Nome { get; set; }
-
         public string Url { get; set; }
     }
 }

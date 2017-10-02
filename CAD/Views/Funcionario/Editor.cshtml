@@ -1,4 +1,5 @@
 ﻿@using CAD.Infraestrutura.MVC
+@using CAD.Infraestrutura.MVC.Helpers
 @model NovoFuncionarioVM
 @{
     ViewBag.Title = "Novo Funcionário";
@@ -61,7 +62,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Sexo, new {@class = "control-label"})
-                        @Html.EnumDropDownListFor(s => s.Sexo, new {@class = "form-control"})
+                        @Html.EnumDropDownListFor(s => s.Sexo, "Selecione",new {@class = "form-control"})
                     </div>
                     @Html.ValidationMessageFor(s => s.Sexo)
                 </div>
@@ -82,6 +83,21 @@
             </div>
             <br />
             <div class="row">
+                <div class='col-md-4'>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.UF, new { @class = "control-label" })
+                        @Html.DropdownUfFor(s => s.UF, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(s => s.UF)
+                    </div>
+                </div>
+                <div class='col-md-2'>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Cidade, new {@class = "control-label"})
+                        @Html.TextBoxFor(s => s.Cidade, new {@class = "form-control", placeholder = "Cidade"})
+                        @Html.ValidationMessageFor(s => s.Cidade)
+
+                    </div>
+                </div>
                 <div class='col-md-3'>
                     <div class="form-group">
                         @Html.LabelFor(m => m.Bairro, new { @class = "control-label" })
@@ -89,52 +105,34 @@
                         @Html.ValidationMessageFor(s => s.Bairro)
                     </div>
                 </div>
-                <div class='col-md-2'>
+                <div class='col-md-3'>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Cidade, new { @class = "control-label" })
-                        @Html.TextBoxFor(s => s.Cidade, new { @class = "form-control", placeholder = "Cidade" })
-                        @Html.ValidationMessageFor(s => s.Cidade)
-
-                    </div>
-                </div>
-                <div class='col-md-1'>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.UF, new { @class = "control-label" })
-                        @Html.TextBoxFor(s => s.UF, new { @class = "form-control", placeholder = "UF" })
-                        @Html.ValidationMessageFor(s => s.UF)
-
-                    </div>
-                </div>
-                <div class='col-md-4'>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.PontoReferencia, new { @class = "control-label" })
-                        @Html.TextBoxFor(s => s.PontoReferencia, new { @class = "form-control", placeholder = "Ponto de Referência" })
+                        @Html.LabelFor(m => m.PontoReferencia, new {@class = "control-label"})
+                        @Html.TextBoxFor(s => s.PontoReferencia, new {@class = "form-control", placeholder = "Ponto de Referência"})
                         @Html.ValidationMessageFor(s => s.PontoReferencia)
 
                     </div>
                 </div>
                 <div class='col-md-2'>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.CEP, new { @class = "control-label" })
-                        @Html.TextBoxFor(s => s.CEP, new { @class = "form-control", data_mask = "00000-000" })
+                        @Html.LabelFor(m => m.CEP, new {@class = "control-label"})
+                        @Html.TextBoxFor(s => s.CEP, new {@class = "form-control", data_mask = "00000-000"})
                         @Html.ValidationMessageFor(s => s.CEP)
 
                     </div>
                 </div>
-            </div>
-            <br />
-            <div class="row" style="margin-bottom: 1em;">
-                <div class="form-group">
-                    <div class="col-md-3">
-                        @Html.LabelFor(s => s.IsInativo, new { @class = "control-label" })
-                        @Html.TextBoxFor(s => s.IsInativo, new { @class = "form-control" })
+                <div class="row" style="margin-bottom: 1em;">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.LabelFor(s => s.IsInativo, new {@class = "control-label"})
+                            <br />
+                            @Html.CheckBoxFor(s => s.IsInativo)
+                        </div>
                     </div>
+                    @Html.ValidationMessageFor(s => s.IsInativo)
                 </div>
-                @Html.ValidationMessageFor(s => s.IsInativo)
             </div>
-
-
-
+         
             <div class="telefones">
                 @{ Html.RenderPartial("_Telefones", Model?.Telefones); }
             </div>
@@ -159,7 +157,7 @@
                 <br />
                 <div class="row">
                     <div class="col-md-offset-3 col-md-2">
-                        @Html.ActionLink("Cancelar", "Index", "Funcionario", new { @class = "btn btn-warning btn-block" })
+                        @Html.ActionLink("Cancelar", "Index", "Funcionario", null, new { @class = "btn btn-warning btn-block" })
                     </div>
                     <div class="col-md-2">
                         <input type="reset" name="btLimpar" id="txLimpar"

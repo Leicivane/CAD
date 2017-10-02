@@ -34,6 +34,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -54,16 +58,22 @@
       <DependentUpon>Email.resx</DependentUpon>
     </Compile>
     <Compile Include="Negocio\DTO\DestinatarioMensagemDTO.cs" />
+    <Compile Include="Negocio\Servicos\CacheServico.cs" />
     <Compile Include="Negocio\Servicos\EmailServico.cs" />
     <Compile Include="Negocio\Servicos\FuncionarioServico.cs" />
+    <Compile Include="Negocio\DTO\GeonameLocalizacaoDTO.cs" />
+    <Compile Include="Negocio\DTO\GeonameResultDTO.cs" />
+    <Compile Include="Negocio\Servicos\Interface\ICacheServico.cs" />
     <Compile Include="Negocio\Servicos\Interface\IUsuarioServico.cs" />
     <Compile Include="Negocio\DTO\MensagemAlteracaoSenhaDTO.cs" />
     <Compile Include="Negocio\DTO\RemetenteMensagemDTO.cs" />
     <Compile Include="Negocio\DTO\UsuarioNovaSenhaDTO.cs" />
     <Compile Include="Negocio\Enums\TipoDocumento.cs" />
     <Compile Include="Negocio\Enums\TipoUsuario.cs" />
-    <Compile Include="Negocio\Servicos\Interface\UsuarioAlterarSenhaDTO.cs" />
-    <Compile Include="Negocio\Servicos\UsuarioMudancaSenhaDTO.cs" />
+    <Compile Include="Negocio\DTO\UsuarioAlterarSenhaDTO.cs" />
+    <Compile Include="Negocio\Servicos\EstadoServico.cs" />
+    <Compile Include="Negocio\DTO\UFDTO.cs" />
+    <Compile Include="Negocio\DTO\UsuarioMudancaSenhaDTO.cs" />
     <Compile Include="Negocio\Servicos\UsuarioServico.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\Extensao\StringUtil.cs" />
@@ -80,6 +90,7 @@
       <CustomToolNamespace>CAD.Core.Negocio.Recursos</CustomToolNamespace>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Email.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
