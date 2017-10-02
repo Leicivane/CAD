@@ -41,15 +41,46 @@ namespace CAD.Core.Negocio.DTO
             Guard.IsNotNull(funcionario, "funcionario");
 
             var destino = Mapeador.MapearPara<Pessoa, NovoFuncionarioDTO>(funcionario);
+            destino.Nome = funcionario.NomePessoa;
+            destino.Email = funcionario.EmailPessoa;
+            destino.Logradouro = funcionario.Enderecos.First().Logradouro;
+            destino.FuncionarioId = funcionario.IdentificadorPessoa;
+            destino.Endereco = new EnderecoDTO();
+            destino.Endereco.IdEstado = funcionario.Enderecos.First().IdentificadorEstado;
+            destino.CEP = funcionario.Enderecos.First().CEP;
+            destino.Sobrenome = funcionario.SobrenomePessoa;
+            destino.RG =
+                funcionario.DocumentosIdentificacao.First(
+                    d => d.CodigoTipoDocumentoIdentificacao == (int) TipoDocumento.RG).NumeroDocumentoIdentificacao;
+
+            destino.CPF =
+                funcionario.DocumentosIdentificacao.First(
+                    d => d.CodigoTipoDocumentoIdentificacao == (int)TipoDocumento.CPF).NumeroDocumentoIdentificacao;
+            destino.Sexo = (TipoSexo) funcionario.CodigoTipoSexo;
+            destino.Setor =
+                (TipoSetor)
+                    funcionario.Usuarios.SelectMany(s => s.UsuariosDepartamento).First().IdentificadorUsuarioSetor;
+
+            destino.Funcao =
+             (TipoFuncao)
+                 funcionario.Usuarios.SelectMany(s => s.UsuariosDepartamento).First().IdentificadorUsuarioFuncao;
+            
             destino.Endereco = new EnderecoDTO();
             destino.Endereco.Bairro = funcionario.Enderecos.First().Bairro;
             destino.Endereco.CEP = funcionario.Enderecos.First().CEP;
             destino.Endereco.Logradouro = funcionario.Enderecos.First().CEP;
 
+            destino.Endereco.IdEstado = funcionario.Enderecos.First().IdentificadorEstado;
+            destino.Endereco.IdMunicipio = funcionario.Enderecos.First().IdentificadorMunicipio;
 
             foreach (var telefoneVM in funcionario.Telefones)
             {
-                destino.Telefones.Add(Mapeador.MapearPara<Telefone, TelefoneDTO>(telefoneVM));
+                var tmp = Mapeador.MapearPara<Telefone, TelefoneDTO>(telefoneVM);
+                tmp.TipoTelefone = TipoTelefone.Celular;
+                tmp.DDD = telefoneVM.PrefixoTelefone;
+                tmp.Numero = telefoneVM.NumeroTelefone;
+                
+                destino.Telefones.Add(tmp);
             }
             return destino;
         }
@@ -66,6 +97,7 @@ namespace CAD.Core.Negocio.DTO
 
     public class EnderecoDTO
     {
+        public string NomeMunicipio { get; set; }
         public int IdMunicipio { get; set; }
         public int IdEstado { get; set; }
         public string Logradouro { get; set; }

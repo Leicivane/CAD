@@ -32,6 +32,7 @@ namespace CAD.Controllers
         public ActionResult Novo()
         {
             ViewBag.Mensagem = _tempDataServico.Buscar(MensagemKey);
+            ViewBag.PodeEditar = true;
 
             return View("Editor", new NovoFuncionarioVM());
         }
@@ -95,6 +96,7 @@ namespace CAD.Controllers
         {
             var funcionario = _funcionarioServico.ObterFuncionario(idFuncionario);
             var model = NovoFuncionarioVM.Converter(funcionario);
+
             ViewBag.PodeEditar = false;
             return View("Editor", model);
         }

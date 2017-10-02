@@ -13,6 +13,7 @@ namespace CAD.Models
     public class NovoFuncionarioVM
     {
         public int FuncionarioId { get; set; }
+        public string NomeMunicipio { get; set; }
         [Display(Name = "UF")]
         [Required(ErrorMessageResourceName = "M003", ErrorMessageResourceType = typeof(Mensagem), AllowEmptyStrings = false)]
         public int UFId { get; set; }
@@ -74,6 +75,8 @@ namespace CAD.Models
             destino.Endereco.Bairro = model.Bairro;
             destino.Endereco.CEP = model.CEP;
             destino.Endereco.Logradouro = model.Logradouro;
+            destino.Endereco.IdEstado = model.UFId;
+            destino.Endereco.IdMunicipio = Convert.ToInt32(model.Cidade);
 
 
             foreach (var telefoneVM in model.Telefones)
@@ -88,11 +91,16 @@ namespace CAD.Models
             Guard.IsNotNull(model, "model");
 
             var destino = Mapeador.MapearPara<NovoFuncionarioDTO, NovoFuncionarioVM>(model);
+            destino.UFId = model.Endereco.IdEstado;
             destino.Bairro = model.Endereco.Bairro;
             destino.CEP = model.CEP;
             destino.Logradouro = model.Logradouro;
+            destino.Sexo = model.Sexo;
+            destino.Setor = model.Setor;
+            destino.PontoReferencia = model.PontoReferencia;
+            destino.UFId = model.Endereco.IdEstado;
 
-
+            destino.NomeMunicipio = model.Endereco.NomeMunicipio;
             foreach (var telefoneVM in model.Telefones)
             {
                 destino.Telefones.Add(Mapeador.MapearPara<TelefoneDTO, TelefoneVM>(telefoneVM));

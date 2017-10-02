@@ -21,6 +21,7 @@ namespace CAD.Infraestrutura.MVC.Helpers
         public static MvcHtmlString DropdownUfFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
         {
+            var id = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
             var ufs = EstadosServico.ListarEstadosDoBrasil();
             if (ufs == null) return MvcHtmlString.Empty;
 

@@ -20,6 +20,7 @@ namespace CAD.Core.Negocio.Servicos
         private readonly RepositorioAtualizavel<UsuarioDepartamento> _repositorioUsuarioDepartamento;
         private readonly RepositorioAtualizavel<Telefone> _repositorioTelefone;
         private readonly CADContext _contexto;
+        private readonly EstadoServico _servicoEstado;
 
         public FuncionarioServico()
         {
@@ -30,7 +31,7 @@ namespace CAD.Core.Negocio.Servicos
             _repostorioUsuario = new RepositorioAtualizavel<Usuario>(_contexto);
             _repositorioUsuarioDepartamento = new RepositorioAtualizavel<UsuarioDepartamento>(_contexto);
             _repositorioTelefone = new RepositorioAtualizavel<Telefone>(_contexto);
-
+            _servicoEstado = new EstadoServico();
 
         }
         public void RegistrarFuncionario(NovoFuncionarioDTO dto)
@@ -145,9 +146,15 @@ namespace CAD.Core.Negocio.Servicos
         public NovoFuncionarioDTO ObterFuncionario(int idPessoa)
         {
             var funcionario = _repositorioPessoa.Obter(idPessoa);
+            var municipio =
+                _servicoEstado.ListarCidadesDoEstado(funcionario.Enderecos.First().IdentificadorEstado.ToString())
+                    .First(s => s.Id == funcionario.Enderecos.First().IdentificadorMunicipio).Nome;
             if (funcionario == null) return null;
 
-            return NovoFuncionarioDTO.Converter(funcionario);
+            var resultado = NovoFuncionarioDTO.Converter(funcionario);
+            resultado.Endereco.NomeMunicipio = municipio;
+
+            return resultado;
         }
     }
 
