@@ -1,5 +1,8 @@
-﻿using CAD.Core.Negocio.Enums;
+﻿using CAD.Core.Negocio.DTO;
+using CAD.Core.Negocio.Enums;
 using CAD.Core.Negocio.Mensagens;
+using CAD.Core.Util.Guard;
+using CAD.Core.Util.Mapeador;
 using CAD.Infraestrutura.MVC.Attributes;
 using System;
 using System.Collections.Generic;
@@ -9,6 +12,7 @@ namespace CAD.Models
 {
     public class NovoFuncionarioVM
     {
+        public int FuncionarioId { get; set; }
         [Display(Name = "UF")]
         [Required(ErrorMessageResourceName = "M003", ErrorMessageResourceType = typeof(Mensagem), AllowEmptyStrings = false)]
         public int UFId { get; set; }
@@ -46,17 +50,56 @@ namespace CAD.Models
         public DateTime DataNascimento { get; set; }
 
         public ICollection<TelefoneVM> Telefones { get; set; }
-        [Display(Name = "Está Inativo")]
+        [Display(Name = "Inativo")]
         public bool IsInativo { get; set; }
 
+        [Display(Name = "Setor")]
+        [Required(ErrorMessageResourceName = "M003", ErrorMessageResourceType = typeof(Mensagem), AllowEmptyStrings = false)]
+        public TipoSetor? Setor { get; set; }
+        [Display(Name = "Função")]
+        [Required(ErrorMessageResourceName = "M003", ErrorMessageResourceType = typeof(Mensagem), AllowEmptyStrings = false)]
+        public TipoFuncao? Funcao { get; set; }
         public NovoFuncionarioVM()
         {
+            DataNascimento = DateTime.Now;
             Telefones = new List<TelefoneVM>();
         }
 
-        public static object Converter(NovoFuncionarioVM model)
+        public static NovoFuncionarioDTO Converter(NovoFuncionarioVM model)
         {
-            throw new NotImplementedException();
+            Guard.IsNotNull(model, "model");
+
+            var destino = Mapeador.MapearPara<NovoFuncionarioVM, NovoFuncionarioDTO>(model);
+            destino.Endereco = new EnderecoDTO();
+            destino.Endereco.Bairro = model.Bairro;
+            destino.Endereco.CEP = model.CEP;
+            destino.Endereco.Logradouro = model.Logradouro;
+
+
+            foreach (var telefoneVM in model.Telefones)
+            {
+                destino.Telefones.Add(Mapeador.MapearPara<TelefoneVM, TelefoneDTO>(telefoneVM));
+            }
+            return destino;
+        }
+
+        public static NovoFuncionarioVM Converter(NovoFuncionarioDTO model)
+        {
+            Guard.IsNotNull(model, "model");
+
+            var destino = Mapeador.MapearPara<NovoFuncionarioDTO, NovoFuncionarioVM>(model);
+            destino.Bairro = model.Endereco.Bairro;
+            destino.CEP = model.CEP;
+            destino.Logradouro = model.Logradouro;
+
+
+            foreach (var telefoneVM in model.Telefones)
+            {
+                destino.Telefones.Add(Mapeador.MapearPara<TelefoneDTO, TelefoneVM>(telefoneVM));
+            }
+            return destino;
         }
     }
+
+    
 }

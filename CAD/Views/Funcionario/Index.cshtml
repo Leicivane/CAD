@@ -27,105 +27,121 @@
 
     <script>
 
+
+
         $(function () {
+            AjaxCAD.Get({
+                url: CADUrl.funcionario.listarfuncionariosjson,
+                success: function (retorno) {
+                    if (retorno.HasErro) {
+                        Eventos.MostrarErroModelState(retorno);
+                        return;
+                    }
 
-            function operateFormatter(value, row, index) {
-                return [
-                    '<a href=' + CADUrl.funcionario.editar + ' title="Editar Funcionário"><i class="fa fa-pencil" aria-hidden="true"></i></a>',
-                    '&nbsp;',
-                    '<a href=' + CADUrl.funcionario.detalhar + ' title="Detalhar Funcionário"><i class="fa fa-info-circle" aria-hidden="true"></i></a>',
-                    '&nbsp;',
-                    '<a href=' + CADUrl.funcionario.excluir + ' title="Detalhar Funcionário"><i class="fa fa-trash" aria-hidden="true"></i></a>',
-                   
-                ].join('');
-            }
+                    var data = retorno.Model;
 
+                    function operateFormatter(value, row, index) {
+                        return [
+                            '<a href=' + CADUrl.funcionario.editar + ' title="Editar Funcionário"><i class="fa fa-pencil" aria-hidden="true"></i></a>',
+                            '&nbsp;',
+                            '<a href=' + CADUrl.funcionario.visualizar + "?idFuncionario=" + row.IdUsuario + ' title="Detalhar Funcionário"><i class="fa fa-info-circle" aria-hidden="true"></i></a>',
+                            '&nbsp;',
+                            '<a href=' + CADUrl.funcionario.excluir + ' title="Detalhar Funcionário"><i class="fa fa-trash" aria-hidden="true"></i></a>',
 
-            var data = [
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-                { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
-            ];
+                        ].join('');
+                    }
 
-            var mensagemSemRegistro = "Nenhum registro foi encontrado.";
-            $('#tabelaConsulta').bootstrapTable('refresh');
-            var options = {
-                pagination: "true",
-                pageSize: 10,
-                cache: false,
-                pageList: "[5, 10, 25, 50]",
-                sidePagination: "client",
-                data: data,
-                columns: [
-                        {
-                            title: 'Nome',
-                            field: 'nome',
-                            align: 'center',
-                            valign: 'middle'
-                        },
-                        {
-                            title: 'Sobrenome',
-                            field: 'sobrenome',
-                            align: 'center',
-                            valign: 'middle'
-                        },
-                        {
-                            title: 'CPF',
-                            field: 'CPF',
-                            align: 'center',
-                            valign: 'middle'
-                        },
-                        {
-                            title: 'Email',
-                            field: 'email',
-                            align: 'center',
-                            valign: 'middle'
-                        },
-                        {
-                            title: 'Telefone',
-                            field: 'telefone',
-                            align: 'center',
-                            valign: 'middle'
-                        },
-                        {
-                            title: 'Ações',
-                            align: 'center',
-                            valign: 'middle',
-                            formatter: operateFormatter
+                    var mensagemSemRegistro = "Nenhum registro foi encontrado.";
+                    $('#tabelaConsulta').bootstrapTable('refresh');
+                    var options = {
+                        pagination: "true",
+                        pageSize: 10,
+                        cache: false,
+                        pageList: "[5, 10, 25, 50]",
+                        sidePagination: "client",
+                        data: data,
+                        columns: [
+                                {
+                                    title: 'Nome',
+                                    field: 'Nome',
+                                    align: 'center',
+                                    valign: 'middle'
+                                },
+                                {
+                                    title: 'Sobrenome',
+                                    field: 'Sobrenome',
+                                    align: 'center',
+                                    valign: 'middle'
+                                },
+                                {
+                                    title: 'CPF',
+                                    field: 'CPF',
+                                    align: 'center',
+                                    valign: 'middle'
+                                },
+                                {
+                                    title: 'Email',
+                                    field: 'Email',
+                                    align: 'center',
+                                    valign: 'middle'
+                                },
+                                {
+                                    title: 'Telefone',
+                                    field: 'Telefone',
+                                    align: 'center',
+                                    valign: 'middle'
+                                },
+                                {
+                                    title: 'Ações',
+                                    align: 'center',
+                                    valign: 'middle',
+                                    formatter: operateFormatter
+                                }
+                        ],
+                        formatNoMatches: function () {
+                            return mensagemSemRegistro;
                         }
-                ],
-                formatNoMatches: function () {
-                    return mensagemSemRegistro;
-                }
-            };
+                    };
 
-            $('#tabelaConsulta').bootstrapTable(options);
+                    $('#tabelaConsulta').bootstrapTable(options);
+                }
+            });
+
+
+
+            //var data = [
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //    { nome: "Daniel", sobrenome: "Ferreira Ramos", CPF: "016.148.651-75", email: "ramos.danielferreira@gmail.com", telefone: "61 - 3387 9066" },
+            //];
+
+
         });
 
     </script>

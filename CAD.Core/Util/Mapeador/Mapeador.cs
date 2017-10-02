@@ -18,11 +18,14 @@ namespace CAD.Core.Util.Mapeador
 
             var propriedadesOrigem = tipoOrigem.GetProperties();
             var propriedadesDestino = tipoDestino.GetProperties();
+            var tiposNaoSuportados = new[] { typeof(List<>), typeof(IList<>), typeof(ICollection<>), typeof(IEnumerable<>) };
 
             var resultado = Activator.CreateInstance(typeof(TResultado));
             foreach (var propDestino in propriedadesDestino)
             {
+#if DEBUG
                 var isMapeada = false;
+#endif
                 if (propriedadesOrigem.Any(p => string.Compare(p.Name, propDestino.Name, StringComparison.InvariantCultureIgnoreCase) == 0 &&
                     p.PropertyType.Name == propDestino.PropertyType.Name))
                 {
@@ -35,19 +38,29 @@ namespace CAD.Core.Util.Mapeador
                     var podeSerEscrita = propriedadeEncontradaNoDestino.CanWrite &&
                                          (!propDestino.PropertyType.IsGenericType || propDestino.PropertyType.GetGenericTypeDefinition() != typeof(IEnumerable<>) &&
                                           propDestino.PropertyType.IsGenericType &&
-                                          propDestino.PropertyType.GetGenericTypeDefinition() != typeof(List<>));
+                                          !tiposNaoSuportados.Contains(propDestino.PropertyType.GetGenericTypeDefinition()));
                     if (podeSerEscrita)
                     {
-                        var valor = origem.GetType()
-                            .GetProperty(propriedadeEncontradaNaOrigem.Name)
-                            .GetValue(origem, null);
-                        propDestino.SetValue(resultado, valor, null);
+                        var propertyInfo = origem.GetType()
+                            .GetProperty(propriedadeEncontradaNaOrigem.Name);
+                        if (propertyInfo != null)
+                        {
+                            var valor = propertyInfo
+                                .GetValue(origem, null);
+                            propDestino.SetValue(resultado, valor, null);
+                        }
+#if DEBUG
                         isMapeada = true;
+#endif
                     }
+
+#if DEBUG
+                    isMapeada = podeSerEscrita;
+#endif
                 }
-#if(DEBUG)
+#if DEBUG
                 if (!isMapeada)
-                    Debug.WriteLine("ATENÇÃO: Propriedade {0} do tipo {1} não mapeada", propDestino.Name, tipoDestino.Name);
+                    Debug.WriteLine("ATENÇÃO: Propriedade {0} do tipo {1} não mapeada".ToUpperInvariant(), propDestino.Name, tipoDestino.Name);
 #endif
             }
 

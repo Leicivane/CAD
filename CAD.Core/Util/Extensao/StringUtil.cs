@@ -49,5 +49,10 @@ namespace CAD.Core.Util.Extensao
                 return e.Message;
             }
         }
+
+        public static string Sanitizado(this string input)
+        {
+            return input.Replace("-", string.Empty).Replace(" ", string.Empty).Replace(".", string.Empty).Trim();
+        }
     }
 }

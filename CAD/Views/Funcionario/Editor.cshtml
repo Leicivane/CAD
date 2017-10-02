@@ -15,6 +15,7 @@
     <div class="col-md-12">
         @using (Html.BeginForm("Novo", "Funcionario", FormMethod.Post))
         {
+            @Html.HiddenFor(s => s.FuncionarioId)
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
@@ -126,6 +127,20 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
+                        @Html.LabelFor(s => s.Setor, new { @class = "control-label" })
+                        @Html.EnumDropDownListFor(s => s.Setor, "Selecione", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(s => s.Setor)
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(s => s.Funcao, new { @class = "control-label" })
+                        @Html.EnumDropDownListFor(s => s.Funcao, "Selecione", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(s => s.Funcao)
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
                         <div class="col-md-3">
                             @Html.LabelFor(s => s.IsInativo, new { @class = "control-label" })
                             <br />
@@ -183,6 +198,12 @@
 
 
         $(function () {
+            var podeEditar = "@ViewBag.PodeEditar" == "True";
+
+            if (!podeEditar) {
+                $("input, select").attr("disabled", true);
+            }
+
             atualizarTelefone();
             $(".telefone-add").click(function (evt) {
                 var linhaTelefone = $(".rowtelefone");
@@ -213,12 +234,13 @@
                 });
             });
 
-
-            $(document).on("click", ".telefone-excluir", function (evt) {
-                Eventos.LimparValidacao();
-                var el = $(evt.currentTarget);
-                el.closest(".rowtelefone").empty();
-            });
+            if (podeEditar) {
+                $(document).on("click", ".telefone-excluir", function (evt) {
+                    Eventos.LimparValidacao();
+                    var el = $(evt.currentTarget);
+                    el.closest(".rowtelefone").empty();
+                });
+            }
         });
 
 

@@ -1,4 +1,4 @@
-using System;
+using CAD.Core.Negocio.Enums;
 
 namespace CAD.Models
 {
@@ -8,6 +8,6 @@ namespace CAD.Models
 
         public string DDD { get; set; }
         public string Numero { get; set; }
-        public DateTime HorarioDeContato { get; set; }
+        public string HorarioDeContato { get; set; }
     }
 }

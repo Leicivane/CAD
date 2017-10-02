@@ -2,6 +2,13 @@
 
 };
 
+CAD.prototype.Get = function(options) {
+    var opcoes = $.extend(options, {
+        method: "GET"
+    });
+
+    this.Ajax(opcoes);
+}
 
 CAD.prototype.Post = function (options) {
 
@@ -9,12 +16,6 @@ CAD.prototype.Post = function (options) {
         method: "POST"
     });
     this.Ajax(opcoes);
-}
-
-
-CAD.prototype.PostFormEncoded = function(options) {
-    options.dataType = 
-    this.Ajax(options);
 }
 
 CAD.prototype.Ajax = function (options) {

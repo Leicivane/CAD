@@ -1,8 +1,8 @@
-﻿using CAD.Core.Negocio.Mensagens;
+﻿using CAD.Core.Negocio.Enums;
+using CAD.Core.Negocio.Mensagens;
 using CAD.Core.Negocio.Servicos;
 using CAD.Infraestrutura.MVC.Servicos;
 using CAD.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -33,11 +33,11 @@ namespace CAD.Controllers
         {
             ViewBag.Mensagem = _tempDataServico.Buscar(MensagemKey);
 
-            return View("Editor");
+            return View("Editor", new NovoFuncionarioVM());
         }
 
         [HttpPost]
-        public ActionResult Novo(NovoFuncionarioVM model, IEnumerable<DateTime> horarioDeContato, IEnumerable<string> numero, IEnumerable<string> ddd, IEnumerable<TipoTelefone> tipoTelefone)
+        public ActionResult Novo(NovoFuncionarioVM model, IEnumerable<string> horarioDeContato, IEnumerable<string> numero, IEnumerable<string> ddd, IEnumerable<TipoTelefone> tipoTelefone)
         {
             GerarModelTelefone(model, horarioDeContato, numero, ddd, tipoTelefone);
             if (!ModelState.IsValid)
@@ -46,14 +46,14 @@ namespace CAD.Controllers
             }
 
             var dto = NovoFuncionarioVM.Converter(model);
-            _funcionarioServico.RegistrarFuncionario(dto);
-
+            if (model.FuncionarioId == default(int))
+                _funcionarioServico.RegistrarFuncionario(dto);
 
             _tempDataServico.Adicionar(MensagemKey, Mensagem.MN005);
             return RedirectToAction("Novo");
         }
 
-        private void GerarModelTelefone(NovoFuncionarioVM model, IEnumerable<DateTime> horarioDeContato, IEnumerable<string> numero, IEnumerable<string> ddd, IEnumerable<TipoTelefone> tipoTelefone)
+        private void GerarModelTelefone(NovoFuncionarioVM model, IEnumerable<string> horarioDeContato, IEnumerable<string> numero, IEnumerable<string> ddd, IEnumerable<TipoTelefone> tipoTelefone)
         {
             for (int i = 0; i < horarioDeContato.Count(); i++)
             {
@@ -80,6 +80,23 @@ namespace CAD.Controllers
             var cidades = _estadoServico.ListarCidadesDoEstado(ufId);
 
             return SucessJson(cidades);
+        }
+
+        [HttpGet]
+        public ActionResult ListarFuncionariosJSON()
+        {
+            var funcionarios = _funcionarioServico.ListarFuncionarios();
+
+            return SucessJson(funcionarios);
+        }
+
+        [HttpGet]
+        public ActionResult Visualizar(int idFuncionario)
+        {
+            var funcionario = _funcionarioServico.ObterFuncionario(idFuncionario);
+            var model = NovoFuncionarioVM.Converter(funcionario);
+            ViewBag.PodeEditar = false;
+            return View("Editor", model);
         }
     }
 }
