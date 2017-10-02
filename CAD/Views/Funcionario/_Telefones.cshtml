@@ -27,7 +27,7 @@
                 <label class="control-label">Nº Telefone</label>
                 @{
                     string n = string.Empty;
-                    if (telefone.Numero != string.Empty)
+                    if (!string.IsNullOrEmpty(telefone.Numero))
                     {
                         n = telefone.Numero.Substring(0, 4) + "-" + telefone.Numero.Substring(4, 4);
                     }
